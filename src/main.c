@@ -14,7 +14,6 @@ main(int argc, char **argv){
 		return 1;
 	}
 
-	//Check weather files exist
 	FILE *acl;
 	FILE *testfile;
 	acl = fopen(argv[1], "r");
@@ -29,22 +28,20 @@ main(int argc, char **argv){
 		return 1;
 	}
 
-	//check and match loop
-	char rawVector[RAWSIZE];
-	char rawRule[RAWSIZE];
+	int vectorNr, ruleNr;
+	char rawVector[RAWSIZE], rawRule[RAWSIZE];
 	struct match match;
 	struct rule rule;
 	struct vector vector;
-	//Uebersichtliche Realisierung, aber ineffektiv, 
-	//da structs wiederholt umherkopiert werden
-	while(fgets(rawVector, RAWSIZE, testfile)){
-		vector = parse_vector(rawVector);
-		while(fgets(rawRule, RAWSIZE, acl) && match.state != NULL){
-			rule = parse_rule(rawRule);
-			match = check_match(vector, rule);
-			print_match(match);
+
+	for(vectorNr = 1; fgets(rawVector, RAWSIZE, testfile); vectorNr++){
+		vector = parse_vector(rawVector, vectorNr);	//to do
+		for(ruleNr = 1; fgets(rawRule, RAWSIZE, acl) && match.state != NULL; ruleNr++){
+			rule = parse_rule(rawRule, ruleNr);	//to do
+			match = check_match(vector, rule);	//to do
+			print_match(match);	//to do
 		}
-		//File Cursor reseten!
+		rewind(acl);
 	}
 
 	fclose(acl);
