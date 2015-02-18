@@ -7,6 +7,6 @@ struct rule{
 };
 
 struct rule
-parse_rule(char*);
+parse_rule(char*, int);
 
 #endif

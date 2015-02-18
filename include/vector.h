@@ -14,6 +14,6 @@ struct vector{
 };
 
 struct vector
-parse_vector(char*);
+parse_vector(char*, int);
 
 #endif
