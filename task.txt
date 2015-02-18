@@ -15,6 +15,8 @@ Task:
 - stdout: 'match <vector-nr> <rule-nr> action (permit,deny)'
 - or stdout: 'no match for <vector-nr>
 
+-close files and dont alter contents
+
 vector format:
 	-------------------------
 	|number (line in file)	|
@@ -42,8 +44,16 @@ rule format:
                       Usage
 ======================================================
 
-Direct usage with single vector:
-$ aclsim rules.acl "vector with all values"
-
 Indirect usage with vector file containing multiple vectors
 $ aclsim rules.acl vectorfile.txt
+
+
+======================================================
+                      To do
+======================================================
+
+- implement effective passing of structs
+- implement parse methods
+- implement rule datastructure
+- implement match method
+
