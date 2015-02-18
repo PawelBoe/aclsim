@@ -1,0 +1,4 @@
+This is the main branch.
+Here are the original program changes that are theoretically
+supposed to work well enough so that one can savely use the
+program without killing his machine ;)
