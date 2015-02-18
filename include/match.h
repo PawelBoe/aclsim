@@ -4,17 +4,15 @@
 #include "rule.h"
 #include "vector.h"
 
+typedef struct match match_t;
 
-struct match{
-	int ruleNr;
-	int vektorNr;
-	char state[8];
-};
-
-struct match
-check_match(struct vector, struct rule);
+match_t *
+check_match(vector_t*, rule_t*);
 
 void
-print_match(struct match);
+free_match(match_t*);
+
+void
+print_match(match_t*);
 
 #endif

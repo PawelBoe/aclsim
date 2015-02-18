@@ -32,19 +32,20 @@ main(int argc, char **argv){
 	//check and match loop
 	char rawVector[RAWSIZE];
 	char rawRule[RAWSIZE];
-	struct match match;
-	struct rule rule;
-	struct vector vector;
-	//Uebersichtliche Realisierung, aber ineffektiv, 
-	//da structs wiederholt umherkopiert werden
+	match_t *match;
+	rule_t *rule;
+	vector_t *vector;
+
 	while(fgets(rawVector, RAWSIZE, testfile)){
 		vector = parse_vector(rawVector);
-		while(fgets(rawRule, RAWSIZE, acl) && match.state != NULL){
+		while(fgets(rawRule, RAWSIZE, acl) && !match){
 			rule = parse_rule(rawRule);
 			match = check_match(vector, rule);
 			print_match(match);
+			free_match(match);
+			free_rule(rule);
 		}
-		//File Cursor reseten!
+		free_vector(vector);
 	}
 
 	fclose(acl);

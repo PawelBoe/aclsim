@@ -1,19 +1,15 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+typedef struct vector vector_t;
 
-struct vector{
-	int number;
-	char *protocol;
-	char *srcIp;
-	char *srcPrt;
-	char *dstIp;
-	char *dstPrt;
-	char *flags;
-	char *comment;
-};
+vector_t *
+create_vector();
 
-struct vector
+void
+free_vector(vector_t*);
+
+vector_t *
 parse_vector(char*);
 
 #endif
