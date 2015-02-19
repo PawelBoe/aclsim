@@ -6,13 +6,13 @@
 
 
 struct match
-check_match(struct vector vector, struct rule rule){
+check_match(struct vector *vector, struct rule *rule){
 	//missing stuff
 	struct match retTest;
 	return retTest;
 }
 
 void
-print_match(struct match match){
+print_match(struct match *match){
 	puts("TEST"); //Test
 }

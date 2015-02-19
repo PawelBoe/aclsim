@@ -12,9 +12,9 @@ struct match{
 };
 
 struct match
-check_match(struct vector, struct rule);
+check_match(struct vector*, struct rule*);
 
 void
-print_match(struct match);
+print_match(struct match*);
 
 #endif
