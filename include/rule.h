@@ -5,7 +5,16 @@
 
 
 struct rule{
-	//missing stuff
+	int number;
+	char status;
+	char protocol;
+	char srcIp;
+	char srcWild;
+	char dsrIp;
+	char dstWild;
+	char operators[3];
+	char operants[3];
+	char log;
 };
 
 struct rule

@@ -25,13 +25,13 @@ valid_vector(char rawVector[VECTORSIZE]);
 
 struct vector{
 	int number;
-	char protocol[VECTORSIZE/16];
+	char protocol[VECTORSIZE];
 	union ipAdr srcIp;
 	union ipPort srcPrt;
 	union ipAdr dstIp;
 	union ipPort dstPrt;
-	char flags[VECTORSIZE/16];
-	char comment[VECTORSIZE/2];
+	char flags[VECTORSIZE];
+	char comment[VECTORSIZE];
 };
 
 union ipAdr

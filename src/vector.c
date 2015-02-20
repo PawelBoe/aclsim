@@ -5,42 +5,59 @@
 
 union ipAdr
 parseIp(char *rawIp){
+	int i, j;
 	union ipAdr address;
-	//stuff missing
+	char token[4][VECTORSIZE] = {};
+
+	for(i = 0; i < 4; i++){
+		for(j = 0; *rawIp != '.' && *rawIp != '\0' && j < VECTORSIZE-1; j++){
+			token[i][j] = *rawIp;
+			rawIp++;
+		}
+		rawIp++;
+	}
+	for(i = 0; i < 4; i++){
+		address.byte[i] = atoi(token[i]);
+	}
 	return address;
 }
 
 union ipPort
 parsePort(char *rawPort){
 	union ipPort port;
-	// stuff missing
+	port.value = atoi(rawPort);
 	return port;
 }
 
 int
-valid_vector(char rawVector[VECTORSIZE]){
-	//Valid format: xxx.xxx.xxx.xxx xxxxx xxx.xxx.xxx.xxx xxxxx FLAGS COMMENT
+valid_vector(char *rawVector){
+	//Valid format: PROTOCOL xxx.xxx.xxx.xxx xxxxx xxx.xxx.xxx.xxx xxxxx FLAGS COMMENT
 	// xxx: 000 - 255
 	// xxxxx: 00000 - 65535
+/*
+	if(mainToken == 7)
+	if(subToken == 4)
+	if(x <= 255 && x >= 0)
+	if(x <= 65535 && x >= 0)
+
+	if(f <= 8 && f >= 0) 
+*/
 	return 0;
 }
 
 struct vector
-parse_vector(char rawVector[VECTORSIZE], int lineNr){
-	int j;
-	int i;
+parse_vector(char *rawVector, int lineNr){
+	int i, j;
 	struct vector newVector;
-	char token[7][VECTORSIZE/2];
+	char token[7][VECTORSIZE] = {};
 
-	//Fehlerhafte zuweisung von random fragmenten
-	for(i = 0, j = 0; rawVector[j] == '\0'; j++){
-		if(rawVector[j] == ' '){
-			i++;
-			continue;
+	for(i = 0; i < 7; i++){
+		for(j = 0; *rawVector != ' ' && *rawVector != '\0' && j < VECTORSIZE-1; j++){
+			token[i][j] = *rawVector;
+			rawVector++;
 		}
-		token[i][j] = rawVector[j];
+		rawVector++;
 	}
-
 	newVector.number = lineNr;
 	strncpy(newVector.protocol, token[0], strlen(token[0]));
 	newVector.srcIp = parseIp(token[1]);
