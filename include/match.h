@@ -8,7 +8,7 @@
 struct match{
 	int ruleNr;
 	int vektorNr;
-	char state[8];
+	char state[8]; //permit, deny, nomatch
 };
 
 struct match

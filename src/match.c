@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "match.h"
 #include "rule.h"
 #include "vector.h"
