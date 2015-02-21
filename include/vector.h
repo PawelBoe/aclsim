@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include "ip.h"
 #define VECTORSIZE 128
 
 
@@ -8,17 +9,6 @@
 //IPv4 addresses are 4 bytes long
 //IPv4 ports are 2 bytes long
 
-typedef unsigned char byte_t;
-
-union ipAdr{
-	byte_t byte[4] ;
-	unsigned int value;
-};
-
-union ipPort{
-	byte_t byte[2];
-	unsigned int value;
-};
 
 int
 valid_vector(char rawVector[VECTORSIZE]);
@@ -33,13 +23,6 @@ struct vector{
 	char flags[VECTORSIZE];
 	char comment[VECTORSIZE];
 };
-
-union ipAdr
-parseIp(char *rawIp);
-
-
-union ipPort
-parsePort(char *rawPort);
 
 struct vector
 parse_vector(char*, int);

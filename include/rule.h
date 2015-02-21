@@ -1,6 +1,7 @@
 #ifndef RULE_H
 #define RULE_H
 
+#include "ip.h"
 #define RULESIZE 128
 
 
@@ -8,9 +9,9 @@ struct rule{
 	int number;
 	char status;
 	char protocol;
-	char srcIp;
+	union ipAdr srcIp;
 	char srcWild;
-	char dsrIp;
+	union ipAdr dstIp;
 	char dstWild;
 	char operators[3];
 	char operants[3];
