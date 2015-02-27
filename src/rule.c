@@ -1,7 +1,8 @@
 #include "rule.h"
 
 
-int valid_rule(char *rawRule){
+int
+valid_rule(char *rawRule){
 	return 0;
 }
 
