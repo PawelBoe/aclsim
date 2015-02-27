@@ -9,9 +9,8 @@
 //IPv4 addresses are 4 bytes long
 //IPv4 ports are 2 bytes long
 
-
 int
-valid_vector(char rawVector[VECTORSIZE]);
+valid_vector(char *rawVector);
 
 struct vector{
 	int number;

@@ -14,7 +14,7 @@ valid_vector(char *rawVector){
 	if(x <= 255 && x >= 0)
 	if(x <= 65535 && x >= 0)
 
-	if(f <= 8 && f >= 0) 
+	if(f <= 8 && f >= 0)
 */
 	return 0;
 }

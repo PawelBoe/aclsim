@@ -5,6 +5,9 @@
 #define RULESIZE 128
 
 
+int
+valid_rule(char *rawRule);
+
 struct rule{
 	int number;
 	char status;

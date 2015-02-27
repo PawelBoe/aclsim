@@ -1,6 +1,10 @@
 #include "rule.h"
 
 
+int valid_rule(char *rawRule){
+	return 0;
+}
+
 //hint: count how many tokens there are
 // then determine which token lies where
 
@@ -33,3 +37,4 @@ parse_rule(char *rawRule, int lineNr){
 
 	return newRule;
 }
+

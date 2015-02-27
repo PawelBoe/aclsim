@@ -32,13 +32,16 @@ main(int argc, char **argv){
 		}
 		vector = parse_vector(vectorbuf, vectorNr);
 		for(ruleNr = 1; fgets(rulebuf, RULESIZE-1, acl) && match.state != NULL; ruleNr++){
+			if(!valid_rule(rulebuf)){
+				fprintf(stderr, "Rule Nr %d. is not valid\n", ruleNr);
+				continue;
+			}
 			rule = parse_rule(rulebuf, ruleNr);	//to do
 			match = check_match(&vector, &rule);	//to do
 			print_match(&match);	//to do
 		}
 		rewind(acl);
 	}
-
 	fclose(acl);
 	return 0;
 }
