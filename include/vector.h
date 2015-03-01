@@ -24,6 +24,6 @@ struct vector{
 };
 
 struct vector
-parse_vector(char*, int);
+parse_vector(char *rawVector, int lineNr);
 
 #endif

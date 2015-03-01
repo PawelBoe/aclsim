@@ -25,13 +25,13 @@ main(int argc, char **argv){
 		return 1;
 	}
 
-	for(vectorNr = 1; fgets(vectorbuf, VECTORSIZE-1, stdin); vectorNr++){
+	for(vectorNr = 0; fgets(vectorbuf, VECTORSIZE-1, stdin); vectorNr++){
 		if(!valid_vector(vectorbuf)){
 			fprintf(stderr, "Vector Nr %d. is not valid\n", vectorNr);
 			continue;
 		}
 		vector = parse_vector(vectorbuf, vectorNr);
-		for(ruleNr = 1; fgets(rulebuf, RULESIZE-1, acl); ruleNr++){
+		for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ruleNr++){
 			if(!valid_rule(rulebuf)){
 				fprintf(stderr, "Rule Nr %d. is not valid\n", ruleNr);
 				continue;

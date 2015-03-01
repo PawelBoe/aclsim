@@ -1,18 +1,18 @@
 #ifndef IP_H
 #define IP_H
 
+#include <stdint.h>
 #define BUFSIZE 128
 
-typedef unsigned char byte_t;
 
 union ipAdr{
-	byte_t byte[4] ;
-	unsigned int value;
+	uint8_t byte[4] ;
+	uint32_t value;
 };
 
 union ipPort{
-	byte_t byte[2];
-	unsigned int value;
+	uint8_t byte[2];
+	uint16_t value;
 };
 
 union ipAdr

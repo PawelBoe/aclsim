@@ -5,17 +5,6 @@
 
 int
 valid_vector(char *rawVector){
-	//Valid format: PROTOCOL xxx.xxx.xxx.xxx xxxxx xxx.xxx.xxx.xxx xxxxx FLAGS COMMENT
-	// xxx: 000 - 255
-	// xxxxx: 00000 - 65535
-/*
-	if(mainToken == 7)
-	if(subToken == 4)
-	if(x <= 255 && x >= 0)
-	if(x <= 65535 && x >= 0)
-
-	if(f <= 8 && f >= 0)
-*/
 	return 0;
 }
 
