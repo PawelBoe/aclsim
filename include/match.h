@@ -7,7 +7,7 @@
 
 struct match{
 	int ruleNr;
-	int vektorNr;
+	int vectorNr;
 	int state; //deny 0, permit 1, nomatch -1
 };
 

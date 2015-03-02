@@ -31,12 +31,22 @@ TCP 141.33.160.2 5443 192.142.33.100 55443 FLAG COMMENT
 
 rule format:
 	-------------------------
-	|
-	|
-	|
-	|
-	|
-	|
+	|number			|
+	|action			|
+	|protocol		|
+	|			|
+	|srcIp_start		|
+	|srcIp_end		|
+	|			|
+	|dstIp_start		|
+	|dstIp_end		|
+	|			|
+	|srcPrt_start		|
+	|srcPrt_end		|
+	|			|
+	|dstPrt_start		|
+	|dstPrt_end		|
+	-------------------------
 
 ======================================================
                       Usage

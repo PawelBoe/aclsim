@@ -5,6 +5,7 @@
 
 int
 valid_vector(char *rawVector){
+	//missing stuff
 	return 0;
 }
 
