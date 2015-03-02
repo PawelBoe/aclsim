@@ -7,9 +7,6 @@ valid_rule(char *rawRule){
 	return 0;
 }
 
-//hint: count how many tokens there are
-// then determine which token lies where
-
 struct rule
 parse_rule(char *rawRule, int lineNr){
 	int i,j;
@@ -17,6 +14,7 @@ parse_rule(char *rawRule, int lineNr){
 	int tokenCount = 0;
 	char token[15][RULESIZE];
 	//missing stuff
+	//count tokens, determine rule format
 	for(i = 0; i < 15 ; i++){
 		for(j = 0; j < RULESIZE-1; i++){
 			token[i][j] = *rawRule;

@@ -6,13 +6,21 @@
 
 struct match
 check_match(struct vector *vector, struct rule *rule){
-	struct match match;
-	match.vectorNr = vector->number;
-	match.ruleNr = rule->number;
+	int i;
+	struct match newMatch;
+	newMatch.vectorNr = vector->number;
+	newMatch.ruleNr = rule->number;
 	//missing stuff:
 	//compare address range and port range
 	//set appropriate state
-	return match;
+	if (vector->protocol != rule->protocol){
+		newMatch.state = -1;
+		return newMatch;
+	}
+	for(i = 0; i < 4; i++){
+		
+	}
+	return newMatch;
 }
 
 void
