@@ -23,7 +23,7 @@ parse_vector(char *rawVector, int lineNr){
 		rawVector++;
 	}
 	newVector.number = lineNr;
-	strncpy(newVector.protocol, token[0], strlen(token[0]));
+	strncpy(newVector.protocol, token[0], strlen(token[0])); //change protocol to number!
 	newVector.srcIp = parseIp(token[1]);
 	newVector.srcPrt = parsePort(token[2]);
 	newVector.dstIp = parseIp(token[3]);

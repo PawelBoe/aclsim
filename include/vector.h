@@ -14,7 +14,7 @@ valid_vector(char *rawVector);
 
 struct vector{
 	int number;
-	char protocol[VECTORSIZE];
+	char protocol[VECTORSIZE]; //change protocol to number!
 	union ipAdr srcIp;
 	union ipPort srcPrt;
 	union ipAdr dstIp;
