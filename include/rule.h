@@ -2,7 +2,7 @@
 #define RULE_H
 
 #include "ip.h"
-#define RULESIZE 128
+#include "constants.h"
 
 
 int

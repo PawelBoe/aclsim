@@ -2,7 +2,7 @@
 #define VECTOR_H
 
 #include "ip.h"
-#define VECTORSIZE 128
+#include "constants.h"
 
 
 //Hint: chars are guaranteed to be 8 bits long

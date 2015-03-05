@@ -3,6 +3,7 @@
 
 #include "rule.h"
 #include "vector.h"
+#include "constants.h"
 
 
 struct match{

@@ -2,7 +2,7 @@
 #define IP_H
 
 #include <stdint.h>
-#define BUFSIZE 128
+#include "constants.h"
 
 
 union ipAdr{

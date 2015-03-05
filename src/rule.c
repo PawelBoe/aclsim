@@ -24,6 +24,7 @@ parse_rule(char *rawRule, int lineNr){
 		rawRule++;
 		tokenCount++;
 	}
+    newRule.number = token[1][1];
 
 	switch(tokenCount){
 	case 5: break;
