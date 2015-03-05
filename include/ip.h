@@ -21,4 +21,7 @@ parseIp(char *rawIp);
 union ipPort
 parsePort(char *rawPort);
 
+int
+parseProtocol(char *rawProtocol);
+
 #endif

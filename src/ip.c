@@ -5,7 +5,7 @@
 union ipAdr
 parseIp(char *rawIp){
 	int i, j;
-	union ipAdr address;
+	union ipAdr newAddtess;
 	char token[4][BUFSIZE] = {};
 
 	for(i = 0; i < 4; i++){
@@ -16,14 +16,20 @@ parseIp(char *rawIp){
 		rawIp++;
 	}
 	for(i = 0; i < 4; i++){
-		address.byte[i] = atoi(token[i]);
+		newAddtess.byte[i] = atoi(token[i]);
 	}
-	return address;
+	return newAddtess;
 }
 
 union ipPort
 parsePort(char *rawPort){
-	union ipPort port;
-	port.value = atoi(rawPort);
-	return port;
+	union ipPort newPort;
+	newPort.value = atoi(rawPort);
+	return newPort;
+}
+
+int
+parseProtocol(char *rawProtocol){
+	//missing stuff
+	return 0;
 }

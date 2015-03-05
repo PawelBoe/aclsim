@@ -5,6 +5,7 @@
 
 int
 valid_vector(char *rawVector){
+	//missing stuff
 	return 0;
 }
 
@@ -22,7 +23,7 @@ parse_vector(char *rawVector, int lineNr){
 		rawVector++;
 	}
 	newVector.number = lineNr;
-	strncpy(newVector.protocol, token[0], strlen(token[0]));
+	newVector.protocol = parseProtocol(token[0]);
 	newVector.srcIp = parseIp(token[1]);
 	newVector.srcPrt = parsePort(token[2]);
 	newVector.dstIp = parseIp(token[3]);

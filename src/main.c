@@ -38,8 +38,8 @@ main(int argc, char **argv){
 			}
 			//missing match break, ignore remarks
 			rule = parse_rule(rulebuf, ruleNr);	//to do
-			match = check_match(&vector, &rule);	//to do
-			print_match(&match);	//to do
+			match = check_match(&vector, &rule);
+			print_match(&match);
 		}
 		rewind(acl);
 	}
