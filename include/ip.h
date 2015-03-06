@@ -6,22 +6,22 @@
 
 
 union ipAdr{
-	uint8_t byte[4] ;
-	uint32_t value;
+    uint8_t byte[4] ;
+    uint32_t value;
 };
 
 union ipPort{
-	uint8_t byte[2];
-	uint16_t value;
+    uint8_t byte[2];
+    uint16_t value;
 };
 
 union ipAdr
-parseIp(char *rawIp);
+parse_ip(char *rawIp);
 
 union ipPort
-parsePort(char *rawPort);
+parse_port(char *rawPort);
 
 int
-parseProtocol(char *rawProtocol);
+parse_protocol(char *rawProtocol);
 
 #endif
