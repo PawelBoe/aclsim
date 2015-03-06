@@ -10,33 +10,32 @@ check_match(struct vector *vector, struct rule *rule){
     newMatch.vectorNr = vector->number;
     newMatch.ruleNr = rule->number;
 
-    if (vector->protocol != rule->protocol){
+    if (rule->action == -1){
         newMatch.state = -1;
-        return newMatch;
+    }
+    else if (vector->protocol != rule->protocol){
+        newMatch.state = -1;
+    }
+    else if(!(vector->srcIp.byte[0] >= rule->srcIp_start.byte[0]) ||
+            !(vector->srcIp.byte[0] <= rule->srcIp_end.byte[0])){
+                newMatch.state = -1;
+    }
+    else if(!(vector->srcIp.byte[1] >= rule->srcIp_start.byte[1]) ||
+            !(vector->srcIp.byte[1] <= rule->srcIp_end.byte[1])){
+                newMatch.state = -1;
+    }
+    else if(!(vector->srcIp.byte[2] >= rule->srcIp_start.byte[2]) ||
+            !(vector->srcIp.byte[2] <= rule->srcIp_end.byte[2])){
+                newMatch.state = -1;
+    }
+    else if(!(vector->srcIp.byte[3] >= rule->srcIp_start.byte[3]) ||
+            !(vector->srcIp.byte[3] <= rule->srcIp_end.byte[3])){
+                newMatch.state = -1;
+    }
+    else{
+        newMatch.state = rule->action;
     }
 
-    if(!(vector->srcIp.byte[0] >= rule->srcIp_start.byte[0]) ||
-       !(vector->srcIp.byte[0] <= rule->srcIp_end.byte[0])){
-        newMatch.state = -1;
-        return newMatch;
-    }
-    if(!(vector->srcIp.byte[1] >= rule->srcIp_start.byte[1]) ||
-       !(vector->srcIp.byte[1] <= rule->srcIp_end.byte[1])){
-        newMatch.state = -1;
-        return newMatch;
-    }
-    if(!(vector->srcIp.byte[2] >= rule->srcIp_start.byte[2]) ||
-       !(vector->srcIp.byte[2] <= rule->srcIp_end.byte[2])){
-        newMatch.state = -1;
-        return newMatch;
-    }
-    if(!(vector->srcIp.byte[3] >= rule->srcIp_start.byte[3]) ||
-       !(vector->srcIp.byte[3] <= rule->srcIp_end.byte[3])){
-        newMatch.state = -1;
-        return newMatch;
-    }
-
-    newMatch.state = rule->action;
     return newMatch;
 }
 

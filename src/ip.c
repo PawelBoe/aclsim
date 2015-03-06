@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "ip.h"
 
 
@@ -30,6 +31,25 @@ parse_port(char *rawPort){
 
 int
 parse_protocol(char *rawProtocol){
-    //missing stuff
-    return 0;
+    int newProtocol;
+    if (strncmp(rawProtocol, "tcp", 3) == 0){
+       newProtocol = PROTO_TCP;
+    }
+    else if(strncmp(rawProtocol, "udp", 3) == 0){
+        newProtocol = PROTO_UDP;
+    }
+    else if(strncmp(rawProtocol, "esp", 3) == 0){
+        newProtocol = PROTO_ESP;
+    }
+    else if(strncmp(rawProtocol, "icmp", 4) == 0){
+        newProtocol = PROTO_ICMP;
+    }
+    else if(strncmp(rawProtocol, "ip", 2) == 0){
+        newProtocol = PROTO_IP;
+    }
+    else{
+        newProtocol = PROTO_UNKNOWN;
+    }
+
+    return newProtocol;
 }

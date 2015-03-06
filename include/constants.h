@@ -7,6 +7,7 @@
 #define RULESIZE 128
 
 //Protocols
+#define PROTO_UNKNOWN -1
 #define PROTO_IP 0
 #define PROTO_TCP 1
 #define PROTO_UDP 2
