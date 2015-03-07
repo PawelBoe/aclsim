@@ -26,14 +26,16 @@ parse_rule(char *rawRule, int lineNr){
     newRule.number = token[1][1];
 
     switch(tokenCount){
-    case 5: break;
-    case 6: break;
-    case 7: break;
-    case 8: break;
-    case 9: break;
-    case 10: break;
-    case 11: break;
-    case 12: break;
+        case 4: break;
+        case 5: break;
+        case 6: break;
+        case 7: break;
+        case 8: break;
+        case 9: break;
+        case 10: break;
+        case 11: break;
+        case 12: break;
+        default: break;
     }
 
     return newRule;

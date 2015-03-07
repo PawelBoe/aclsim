@@ -7,10 +7,10 @@ union ipAdr
 parse_ip(char *rawIp){
     int i, j;
     union ipAdr newAddtess;
-    char token[4][BUFSIZE] = {};
+    char token[4][3] = {};
 
     for(i = 0; i < 4; i++){
-        for(j = 0; *rawIp != '.' && *rawIp != '\0' && j < BUFSIZE-1; j++){
+        for(j = 0; *rawIp != '.' && *rawIp != '\0' && j < 3; j++){
             token[i][j] = *rawIp;
             rawIp++;
         }

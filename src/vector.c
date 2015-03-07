@@ -20,6 +20,8 @@ parse_vector(char *rawVector, int lineNr){
             token[i][j] = *rawVector;
             rawVector++;
         }
+        //insert \0 character after last j++?
+        token[i][j] = '\0';
         rawVector++;
     }
     newVector.number = lineNr;
