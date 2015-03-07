@@ -30,7 +30,7 @@ parse_vector(char *rawVector, int lineNr){
     newVector.srcPrt = parse_port(token[2]);
     newVector.dstIp = parse_ip(token[3]);
     newVector.dstPrt = parse_port(token[4]);
-    strncpy(newVector.flags, token[5], strlen(token[5]));
-    strncpy(newVector.comment, token[6], strlen(token[6]));
+    strncpy(newVector.flags, token[5], strlen(token[5])+1);
+    strncpy(newVector.comment, token[6], strlen(token[6])+1);
     return newVector;
 }
