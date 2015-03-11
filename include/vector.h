@@ -1,15 +1,24 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-typedef struct vector vector_t;
+#include "ip.h"
+#include "constants.h"
 
-vector_t *
-create_vector();
+
+int
+valid_vector(char *rawVector);
+
+struct vector{
+    int number;
+    int protocol;
+    union ipAdr srcIp;
+    union ipPort srcPrt;
+    union ipAdr dstIp;
+    union ipPort dstPrt;
+    char flags[VECTORSIZE];
+};
 
 void
-free_vector(vector_t*);
-
-vector_t *
-parse_vector(char*);
+parse_vector(struct vector *newVector, char *rawVector, int lineNr);
 
 #endif

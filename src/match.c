@@ -1,28 +1,55 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "match.h"
 #include "rule.h"
 #include "vector.h"
 
-struct match{
-	int ruleNr;
-	int vektorNr;
-	char state[8];
-};
 
-match_t *
-check_match(vector_t *vector, rule_t *rule){
-	//missing stuff
-	match_t *retTest = malloc(sizeof(match_t));
-	return retTest;
+void
+check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
+    newMatch->vectorNr = vector->number;
+    newMatch->ruleNr = rule->number;
+
+    if (rule->action == -1){
+        newMatch->state = -1;
+    }
+    else if (vector->protocol != rule->protocol){
+        newMatch->state = -1;
+    }
+    else if(!(vector->srcIp.byte[0] >= rule->srcIp_start.byte[0]) ||
+            !(vector->srcIp.byte[0] <= rule->srcIp_end.byte[0])){
+                newMatch->state = -1;
+    }
+    else if(!(vector->srcIp.byte[1] >= rule->srcIp_start.byte[1]) ||
+            !(vector->srcIp.byte[1] <= rule->srcIp_end.byte[1])){
+                newMatch->state = -1;
+    }
+    else if(!(vector->srcIp.byte[2] >= rule->srcIp_start.byte[2]) ||
+            !(vector->srcIp.byte[2] <= rule->srcIp_end.byte[2])){
+                newMatch->state = -1;
+    }
+    else if(!(vector->srcIp.byte[3] >= rule->srcIp_start.byte[3]) ||
+            !(vector->srcIp.byte[3] <= rule->srcIp_end.byte[3])){
+                newMatch->state = -1;
+    }
+    else{
+        newMatch->state = rule->action;
+    }
 }
 
 void
-free_match(match_t *oldMatch){
-	free(oldMatch);
-}
-
-void
-print_match(match_t* match){
-	puts("TEST"); //Test
+print_match(struct match *match){
+    switch(match->state){
+        case(0):
+            printf("match: vectorNr.%d ruleNr.%d deny", match->vectorNr, match->ruleNr);
+            break;
+        case(1):
+            printf("match: vectorNr.%d ruleNr.%d permit", match->vectorNr, match->ruleNr);
+            break;
+        case(-1):
+            printf("nomatch: vectorNr.%d ruleNr.%d", match->vectorNr, match->ruleNr);
+            break;
+        default:
+            printf("error: vectorNr.%d ruleNr.%d", match->vectorNr, match->ruleNr);
+            break;
+    }
 }

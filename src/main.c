@@ -1,54 +1,61 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 #include "match.h"
 #include "rule.h"
 #include "vector.h"
 
-#define RAWSIZE 100
 
+void
+skipLine(FILE *stream);
 
 int
 main(int argc, char **argv){
-	if(argc != 3){
-		fprintf(stderr, "Usage: %s <aclfile> <vectorfile>\n", argv[0]);
-		return 1;
-	}
 
-	//Check weather files exist
-	FILE *acl;
-	FILE *testfile;
-	acl = fopen(argv[1], "r");
-	testfile = fopen(argv[2], "r");
+    FILE *acl;
+    int vectorNr, ruleNr;
+    char vectorbuf[VECTORSIZE], rulebuf[RULESIZE];
+    struct match match;
+    struct rule rule;
+    struct vector vector;
 
-	if(acl == NULL){
-		fprintf(stderr, "Unable to open file: %s\n", argv[1]);
-		return 1;
-	}
-	if(testfile == NULL){
-		fprintf(stderr, "Unable to open file: %s\n", argv[2]);
-		return 1;
-	}
+    if(argc != 2){
+        fprintf(stderr, "Usage: %s <aclfile> < vector(s)\n", argv[0]);
+        return 1;
+    }
 
-	//check and match loop
-	char rawVector[RAWSIZE];
-	char rawRule[RAWSIZE];
-	match_t *match;
-	rule_t *rule;
-	vector_t *vector;
+    acl = fopen(argv[1], "r");
+    if(acl == NULL){
+        fprintf(stderr, "Unable to open file: %s\n", argv[1]);
+        return 1;
+    }
 
-	while(fgets(rawVector, RAWSIZE, testfile)){
-		vector = parse_vector(rawVector);
-		while(fgets(rawRule, RAWSIZE, acl) && !match){
-			rule = parse_rule(rawRule);
-			match = check_match(vector, rule);
-			print_match(match);
-			free_match(match);
-			free_rule(rule);
-		}
-		free_vector(vector);
-	}
+    //missing match break, ignore remarks, validity cheacking
+    for(vectorNr = 0; fgets(vectorbuf, VECTORSIZE-1, stdin); vectorNr++){
+        if(vectorbuf[strlen(vectorbuf)-1] != '\n'){
+            skipLine(stdin);
+        }
+        if(!valid_vector(vectorbuf)){
+            continue;
+        }
+        parse_vector(&vector, vectorbuf, vectorNr); //errorcodes?
+        for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ruleNr++){
+            if(rulebuf[strlen(rulebuf)-1] != '\n'){
+                skipLine(acl);
+            }
+            if(!valid_rule(rulebuf)){
+                continue;
+            }
+            parse_rule(&rule, rulebuf, ruleNr); //to do + errorcodes?
+            check_match(&match, &vector, &rule); //errorcodes?
+            print_match(&match); //errorcodes?
+        }
+        rewind(acl);
+    }
+    fclose(acl);
+    return 0;
+}
 
-	fclose(acl);
-	fclose(testfile);
-	return 0;
+void
+skipLine(FILE *stream){
+    while(getc(stream) != '\n');
 }

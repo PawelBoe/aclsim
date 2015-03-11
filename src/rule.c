@@ -1,25 +1,40 @@
-#include <stdlib.h>
 #include "rule.h"
 
-struct rule{
-	//missing stuff
-};
 
-rule_t *
-create_rule(){
-	rule_t *newRule;
-	newRule = malloc(sizeof(rule_t));
-	return newRule;
+int
+valid_rule(char *rawRule){
+    //missing stuff
+    return 0;
 }
 
 void
-free_rule(rule_t *oldRule){
-	free(oldRule);
+parse_rule(struct rule *newRule, char *rawRule, int lineNr){
+    int i,j;
+    int tokenCount = 0;
+    char token[15][RULESIZE];
+    //missing stuff
+    //count tokens, determine rule format
+    for(i = 0; i < 15 ; i++){
+        for(j = 0; j < RULESIZE-1; i++){
+            token[i][j] = *rawRule;
+            rawRule++;
+        }
+        rawRule++;
+        tokenCount++;
+    }
+    newRule->number = token[1][1];
+
+    switch(tokenCount){
+        case 4: break;
+        case 5: break;
+        case 6: break;
+        case 7: break;
+        case 8: break;
+        case 9: break;
+        case 10: break;
+        case 11: break;
+        case 12: break;
+        default: break;
+    }
 }
 
-rule_t *
-parse_rule(char *rawRule){
-	rule_t *newRule = create_rule();
-	//missing stuff
-	return newRule;
-}

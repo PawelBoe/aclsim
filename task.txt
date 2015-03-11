@@ -15,46 +15,45 @@ Task:
 - stdout: 'match <vector-nr> <rule-nr> action (permit,deny)'
 - or stdout: 'no match for <vector-nr>
 
--close files and dont alter contents
-
 vector format:
-	-------------------------
-	|number (line in file)	|
-	|protocol		|
-	|sourceIP		|
-	|sourcePort		|
-	|destinationIP		|
-	|destinationPort	|
-	|Flags			|
-	|comment		|
-	-------------------------
+    -------------------------
+    |number (line in file)  |
+    |protocol               |
+    |sourceIP               |
+    |sourcePort             |
+    |destinationIP          |
+    |destinationPort        |
+    |Flags                  |
+    |comment                |
+    -------------------------
 example:
 TCP 141.33.160.2 5443 192.142.33.100 55443 FLAG COMMENT
 
 rule format:
-	-------------------------
-	|
-	|
-	|
-	|
-	|
-	|
+    -------------------------
+    |number                 |
+    |action                 |
+    |protocol               |
+    |                       |
+    |srcIp_start            |
+    |srcIp_end              |
+    |                       |
+    |dstIp_start            |
+    |dstIp_end              |
+    |                       |
+    |srcPrt_start           |
+    |srcPrt_end             |
+    |                       |
+    |dstPrt_start           |
+    |dstPrt_end             |
+    -------------------------
 
 ======================================================
                       Usage
 ======================================================
 
+Direct usage with single vector:
+$ aclsim rules.acl "vector with all values"
+
 Indirect usage with vector file containing multiple vectors
-$ aclsim rules.acl < vectorfile.txt
-
-
-======================================================
-                      To do
-======================================================
-
-- implement pipe possibility, dont pass file as parameter
-- implement effective passing of structs
-- implement parse methods
-- implement rule datastructure
-- implement match method
-
+$ aclsim rules.acl vectorfile.txt

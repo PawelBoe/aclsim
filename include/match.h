@@ -3,16 +3,19 @@
 
 #include "rule.h"
 #include "vector.h"
+#include "constants.h"
 
-typedef struct match match_t;
 
-match_t *
-check_match(vector_t*, rule_t*);
+struct match{
+    int ruleNr;
+    int vectorNr;
+    int state; //deny 0, permit 1, nomatch/remark -1
+};
 
 void
-free_match(match_t*);
+check_match(struct match *newMatch, struct vector *vector, struct rule *rule);
 
 void
-print_match(match_t*);
+print_match(struct match *match);
 
 #endif

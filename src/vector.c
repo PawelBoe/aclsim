@@ -1,32 +1,32 @@
-#include <stdlib.h>
+#include <string.h>
 #include "vector.h"
+#include "ip.h"
 
-struct vector{
-	int number;
-	char *protocol;
-	char *srcIp;
-	char *srcPrt;
-	char *dstIp;
-	char *dstPrt;
-	char *flags;
-	char *comment;
-};
 
-vector_t *
-create_vector(){
-	vector_t *newVector; 
-	newVector = malloc(sizeof(vector_t));
-	return newVector;
+int
+valid_vector(char *rawVector){
+    //missing stuff
+    return 0;
 }
 
 void
-free_vector(vector_t *oldVector){
-	free(oldVector);
-}
+parse_vector(struct vector *newVector, char *rawVector, int lineNr){
+    int i;
+    char *token[6];
+    char buff[VECTORSIZE];
+    strncpy(buff, rawVector, VECTORSIZE);
+    buff[VECTORSIZE-1] = '\0';
 
-vector_t *
-parse_vector(char *rawRule){
-	vector_t *newVector = create_vector();
-	//missing stuff
-	return newVector;
+    token[0] = strtok(buff, " \n");
+    for (i = 1; i < 6; i++){
+        token[i] = strtok(NULL, " \n");
+    }
+
+    newVector->number = lineNr;
+    newVector->protocol = parse_protocol(token[0]);
+    newVector->srcIp = parse_ip(token[1]);
+    newVector->srcPrt = parse_port(token[2]);
+    newVector->dstIp = parse_ip(token[3]);
+    newVector->dstPrt = parse_port(token[4]);
+    strncpy(newVector->flags, token[5], strlen(token[5])+1);
 }
