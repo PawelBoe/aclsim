@@ -26,7 +26,7 @@ struct rule{
     union ipPort dstPrt_end;
 };
 
-struct rule
-parse_rule(char *rawRule, int lineNr);
+void
+parse_rule(struct rule *newRule, char *rawRule, int lineNr);
 
 #endif

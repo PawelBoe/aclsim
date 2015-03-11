@@ -9,28 +9,25 @@ valid_vector(char *rawVector){
     return 0;
 }
 
-struct vector
-parse_vector(char *rawVector, int lineNr){
-    int i, j;
-    struct vector newVector;
-    char token[7][VECTORSIZE] = {};
+void
+parse_vector(struct vector *newVector, char *rawVector, int lineNr){
+    int i;
+    char *token[7];
+    char buff[VECTORSIZE];
+    strncpy(buff, rawVector, VECTORSIZE);
+    buff[VECTORSIZE-1] = '\0';
 
-    for(i = 0; i < 7; i++){
-        for(j = 0; *rawVector != ' ' && *rawVector != '\0' && j < VECTORSIZE-1; j++){
-            token[i][j] = *rawVector;
-            rawVector++;
-        }
-        //insert \0 character after last j++?
-        token[i][j] = '\0';
-        rawVector++;
+    token[0] = strtok(buff, " \n");
+    for (i = 1; i < 7; i++){
+        token[i] = strtok(NULL, " \n");
     }
-    newVector.number = lineNr;
-    newVector.protocol = parse_protocol(token[0]);
-    newVector.srcIp = parse_ip(token[1]);
-    newVector.srcPrt = parse_port(token[2]);
-    newVector.dstIp = parse_ip(token[3]);
-    newVector.dstPrt = parse_port(token[4]);
-    strncpy(newVector.flags, token[5], strlen(token[5])+1);
-    strncpy(newVector.comment, token[6], strlen(token[6])+1);
-    return newVector;
+
+    newVector->number = lineNr;
+    newVector->protocol = parse_protocol(token[0]);
+    newVector->srcIp = parse_ip(token[1]);
+    newVector->srcPrt = parse_port(token[2]);
+    newVector->dstIp = parse_ip(token[3]);
+    newVector->dstPrt = parse_port(token[4]);
+    strncpy(newVector->flags, token[5], strlen(token[5])+1);
+    strncpy(newVector->comment, token[6], strlen(token[6])+1);
 }

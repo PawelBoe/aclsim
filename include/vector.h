@@ -19,7 +19,7 @@ struct vector{
     char comment[VECTORSIZE];
 };
 
-struct vector
-parse_vector(char *rawVector, int lineNr);
+void
+parse_vector(struct vector *newVector, char *rawVector, int lineNr);
 
 #endif

@@ -30,16 +30,16 @@ main(int argc, char **argv){
             fprintf(stderr, "Vector Nr %d. is not valid\n", vectorNr);
             continue;
         }
-        vector = parse_vector(vectorbuf, vectorNr);
+        parse_vector(&vector, vectorbuf, vectorNr); //errorcodes?
         for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ruleNr++){
             if(!valid_rule(rulebuf)){
                 fprintf(stderr, "Rule Nr %d. is not valid\n", ruleNr);
                 continue;
             }
             //missing match break, ignore remarks
-            rule = parse_rule(rulebuf, ruleNr); //to do
-            match = check_match(&vector, &rule);
-            print_match(&match);
+            parse_rule(&rule, rulebuf, ruleNr); //to do + errorcodes?
+            check_match(&match, &vector, &rule); //errorcodes?
+            print_match(&match); //errorcodes?
         }
         rewind(acl);
     }

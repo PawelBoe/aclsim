@@ -7,10 +7,9 @@ valid_rule(char *rawRule){
     return 0;
 }
 
-struct rule
-parse_rule(char *rawRule, int lineNr){
+void
+parse_rule(struct rule *newRule, char *rawRule, int lineNr){
     int i,j;
-    struct rule newRule;
     int tokenCount = 0;
     char token[15][RULESIZE];
     //missing stuff
@@ -23,7 +22,7 @@ parse_rule(char *rawRule, int lineNr){
         rawRule++;
         tokenCount++;
     }
-    newRule.number = token[1][1];
+    newRule->number = token[1][1];
 
     switch(tokenCount){
         case 4: break;
@@ -37,7 +36,5 @@ parse_rule(char *rawRule, int lineNr){
         case 12: break;
         default: break;
     }
-
-    return newRule;
 }
 
