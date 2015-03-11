@@ -16,7 +16,6 @@ struct vector{
     union ipAdr dstIp;
     union ipPort dstPrt;
     char flags[VECTORSIZE];
-    char comment[VECTORSIZE];
 };
 
 void

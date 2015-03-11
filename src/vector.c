@@ -12,13 +12,13 @@ valid_vector(char *rawVector){
 void
 parse_vector(struct vector *newVector, char *rawVector, int lineNr){
     int i;
-    char *token[7];
+    char *token[6];
     char buff[VECTORSIZE];
     strncpy(buff, rawVector, VECTORSIZE);
     buff[VECTORSIZE-1] = '\0';
 
     token[0] = strtok(buff, " \n");
-    for (i = 1; i < 7; i++){
+    for (i = 1; i < 6; i++){
         token[i] = strtok(NULL, " \n");
     }
 
@@ -29,5 +29,4 @@ parse_vector(struct vector *newVector, char *rawVector, int lineNr){
     newVector->dstIp = parse_ip(token[3]);
     newVector->dstPrt = parse_port(token[4]);
     strncpy(newVector->flags, token[5], strlen(token[5])+1);
-    strncpy(newVector->comment, token[6], strlen(token[6])+1);
 }
