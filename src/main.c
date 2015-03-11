@@ -1,8 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 #include "match.h"
 #include "rule.h"
 #include "vector.h"
 
+
+void
+skipLine(FILE *stream);
 
 int
 main(int argc, char **argv){
@@ -25,18 +29,22 @@ main(int argc, char **argv){
         return 1;
     }
 
+    //missing match break, ignore remarks, validity cheacking
     for(vectorNr = 0; fgets(vectorbuf, VECTORSIZE-1, stdin); vectorNr++){
+        if(vectorbuf[strlen(vectorbuf)-1] != '\n'){
+            skipLine(stdin);
+        }
         if(!valid_vector(vectorbuf)){
-            fprintf(stderr, "Vector Nr %d. is not valid\n", vectorNr);
             continue;
         }
         parse_vector(&vector, vectorbuf, vectorNr); //errorcodes?
         for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ruleNr++){
+            if(rulebuf[strlen(rulebuf)-1] != '\n'){
+                skipLine(acl);
+            }
             if(!valid_rule(rulebuf)){
-                fprintf(stderr, "Rule Nr %d. is not valid\n", ruleNr);
                 continue;
             }
-            //missing match break, ignore remarks
             parse_rule(&rule, rulebuf, ruleNr); //to do + errorcodes?
             check_match(&match, &vector, &rule); //errorcodes?
             print_match(&match); //errorcodes?
@@ -45,4 +53,9 @@ main(int argc, char **argv){
     }
     fclose(acl);
     return 0;
+}
+
+void
+skipLine(FILE *stream){
+    while(getc(stream) != '\n');
 }

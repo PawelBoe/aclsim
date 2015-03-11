@@ -26,11 +26,13 @@ parse_vectorTest(struct vector *newVector, char *rawVector, int lineNr){
     strncpy(newVector->flags, token[5], strlen(token[5])+1);
 }
 
-void skipLine(FILE *stream){
+void
+skipLine(FILE *stream){
     while(getc(stream) != '\n');
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     struct vector TEST;
     char STRING[VECTORSIZE];
