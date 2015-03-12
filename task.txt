@@ -52,8 +52,9 @@ rule format:
                       Usage
 ======================================================
 
-Direct usage with single vector:
-$ aclsim rules.acl "vector with all values"
+Direct usage with single vector from stdin:
+$ aclsim rules.acl 
+"vector with all values"
 
 Indirect usage with vector file containing multiple vectors
-$ aclsim rules.acl vectorfile.txt
+$ aclsim rules.acl < vectorfile.txt
