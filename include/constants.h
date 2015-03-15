@@ -6,6 +6,9 @@
 #define VECTORSIZE 128
 #define RULESIZE 128
 
+//Errorcodes
+
+
 //Protocols
 #define PROTO_UNKNOWN -1
 #define PROTO_IP 0

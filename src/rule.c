@@ -1,14 +1,17 @@
 #include "rule.h"
 
 
-int
+static int
 valid_rule(char *rawRule){
     //missing stuff
     return 0;
 }
 
-void
+int
 parse_rule(struct rule *newRule, char *rawRule, int lineNr){
+    //missing validity checking
+    valid_rule(rawRule);
+
     int i,j;
     int tokenCount = 0;
     char token[15][RULESIZE];
@@ -36,5 +39,6 @@ parse_rule(struct rule *newRule, char *rawRule, int lineNr){
         case 12: break;
         default: break;
     }
+    return 0;
 }
 

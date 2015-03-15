@@ -15,13 +15,13 @@ union ipPort{
     uint16_t value;
 };
 
-union ipAdr
+extern union ipAdr
 parse_ip(char *rawIp);
 
-union ipPort
+extern union ipPort
 parse_port(char *rawPort);
 
-int
+extern int
 parse_protocol(char *rawProtocol);
 
 #endif

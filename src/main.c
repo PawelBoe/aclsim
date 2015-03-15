@@ -29,23 +29,21 @@ main(int argc, char **argv){
         return 1;
     }
 
-    //missing match break, ignore remarks, validity cheacking
+    //missing match break, ignore remarks, validity (errorcodes)
     for(vectorNr = 0; fgets(vectorbuf, VECTORSIZE-1, stdin); vectorNr++){
         if(vectorbuf[strlen(vectorbuf)-1] != '\n'){
             skipLine(stdin);
         }
-        if(!valid_vector(vectorbuf)){
+        if(!parse_vector(&vector, vectorbuf, vectorNr)){ //errorcodes
             continue;
         }
-        parse_vector(&vector, vectorbuf, vectorNr); //errorcodes?
         for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ruleNr++){
             if(rulebuf[strlen(rulebuf)-1] != '\n'){
                 skipLine(acl);
             }
-            if(!valid_rule(rulebuf)){
+            if(!parse_rule(&rule, rulebuf, ruleNr)){ //to do + errorcodes
                 continue;
             }
-            parse_rule(&rule, rulebuf, ruleNr); //to do + errorcodes?
             check_match(&match, &vector, &rule); //errorcodes?
             print_match(&match); //errorcodes?
         }

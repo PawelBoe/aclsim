@@ -3,14 +3,17 @@
 #include "ip.h"
 
 
-int
+static int
 valid_vector(char *rawVector){
     //missing stuff
     return 0;
 }
 
-void
+int
 parse_vector(struct vector *newVector, char *rawVector, int lineNr){
+    //missing validity checking
+    valid_vector(rawVector);
+
     int i;
     char *token[6];
     char buff[VECTORSIZE];
@@ -29,4 +32,5 @@ parse_vector(struct vector *newVector, char *rawVector, int lineNr){
     newVector->dstIp = parse_ip(token[3]);
     newVector->dstPrt = parse_port(token[4]);
     strncpy(newVector->flags, token[5], strlen(token[5])+1);
+    return 0; //success
 }

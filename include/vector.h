@@ -5,9 +5,6 @@
 #include "constants.h"
 
 
-int
-valid_vector(char *rawVector);
-
 struct vector{
     int number;
     int protocol;
@@ -18,7 +15,7 @@ struct vector{
     char flags[VECTORSIZE];
 };
 
-void
+extern int
 parse_vector(struct vector *newVector, char *rawVector, int lineNr);
 
 #endif

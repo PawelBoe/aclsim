@@ -12,10 +12,10 @@ struct match{
     int state; //deny 0, permit 1, nomatch/remark -1
 };
 
-void
+extern void
 check_match(struct match *newMatch, struct vector *vector, struct rule *rule);
 
-void
+extern void
 print_match(struct match *match);
 
 #endif

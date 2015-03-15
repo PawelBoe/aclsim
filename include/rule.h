@@ -5,9 +5,6 @@
 #include "constants.h"
 
 
-int
-valid_rule(char *rawRule);
-
 struct rule{
     int number;     //position of rule in ACL (starting with 0)
     int action;     //rule action (0-deny 1-permit, -1-remark)
@@ -26,7 +23,7 @@ struct rule{
     union ipPort dstPrt_end;
 };
 
-void
+extern int
 parse_rule(struct rule *newRule, char *rawRule, int lineNr);
 
 #endif
