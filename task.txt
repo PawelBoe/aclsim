@@ -53,7 +53,7 @@ rule format:
 ======================================================
 
 Direct usage with single vector from stdin:
-$ aclsim rules.acl 
+$ aclsim rules.acl
 "vector with all values"
 
 Indirect usage with vector file containing multiple vectors
