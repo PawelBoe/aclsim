@@ -16,12 +16,12 @@ union ipPort{
 };
 
 extern union ipAdr
-parse_ip(char *rawIp);
+parse_address_ip(char *rawIp);
 
 extern union ipPort
-parse_port(char *rawPort);
+parse_port_ip(char *rawPort);
 
 extern int
-parse_protocol(char *rawProtocol);
+parse_protocol_ip(char *rawProtocol);
 
 #endif

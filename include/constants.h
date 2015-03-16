@@ -17,13 +17,24 @@ enum errors{
 
 typedef enum errors error_t;
 
+//Actions
+#define AC_DENY 0
+#define AC_PERMIT 1
+#define AC_REMARK 2
+#define AC_UNKNOWN -1
+
+//Match states
+#define ST_DENY 0
+#define ST_PERMIT 1
+#define ST_NOMATCH -1
+
 //Protocols
-#define PROTO_UNKNOWN -1
 #define PROTO_IP 0
 #define PROTO_TCP 1
 #define PROTO_UDP 2
 #define PROTO_ESP 3
 #define PROTO_ICMP 4
+#define PROTO_UNKNOWN -1
 
 //Ports
 #define PORT_ECHO 7                /** echo */

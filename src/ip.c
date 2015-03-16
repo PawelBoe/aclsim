@@ -4,7 +4,7 @@
 
 
 union ipAdr
-parse_ip(char *rawIp){
+parse_address_ip(char *rawIp){
     int i;
     char *token[4];
     char buff[IPSIZE];
@@ -25,14 +25,14 @@ parse_ip(char *rawIp){
 }
 
 union ipPort
-parse_port(char *rawPort){
+parse_port_ip(char *rawPort){
     union ipPort newPort;
     newPort.value = atoi(rawPort);
     return newPort;
 }
 
 int
-parse_protocol(char *rawProtocol){
+parse_protocol_ip(char *rawProtocol){
     int newProtocol;
     if (strncmp(rawProtocol, "tcp", 3) == 0){
        newProtocol = PROTO_TCP;

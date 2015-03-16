@@ -34,18 +34,18 @@ main(int argc, char **argv){
         if(vectorbuf[strlen(vectorbuf)-1] != '\n'){
             skipLine(stdin);
         }
-        if(!parse_vector(&vector, vectorbuf, vectorNr)){ //errorcodes
+        if(parse_vector(&vector, vectorbuf, vectorNr) != SUCCESS){ //errorcodes
             continue;
         }
         for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ruleNr++){
             if(rulebuf[strlen(rulebuf)-1] != '\n'){
                 skipLine(acl);
             }
-            if(!parse_rule(&rule, rulebuf, ruleNr)){ //to do + errorcodes
+            if(parse_rule(&rule, rulebuf, ruleNr) != SUCCESS){ //to do + errorcodes
                 continue;
             }
-            check_match(&match, &vector, &rule); //errorcodes?
-            print_match(&match); //errorcodes?
+            check_match(&match, &vector, &rule); //errorcodes
+            print_match(&match); //errorcodes
         }
         rewind(acl);
     }

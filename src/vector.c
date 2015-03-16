@@ -26,11 +26,11 @@ parse_vector(struct vector *newVector, char *rawVector, int lineNr){
     }
 
     newVector->number = lineNr;
-    newVector->protocol = parse_protocol(token[0]);
-    newVector->srcIp = parse_ip(token[1]);
-    newVector->srcPrt = parse_port(token[2]);
-    newVector->dstIp = parse_ip(token[3]);
-    newVector->dstPrt = parse_port(token[4]);
+    newVector->protocol = parse_protocol_ip(token[0]);
+    newVector->srcIp = parse_address_ip(token[1]);
+    newVector->srcPrt = parse_port_ip(token[2]);
+    newVector->dstIp = parse_address_ip(token[3]);
+    newVector->dstPrt = parse_port_ip(token[4]);
     strncpy(newVector->flags, token[5], strlen(token[5])+1);
     return SUCCESS;
 }

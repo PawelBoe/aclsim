@@ -7,20 +7,20 @@
 
 struct rule{
     int number;     //position of rule in ACL (starting with 0)
-    int action;     //rule action (0-deny 1-permit, -1-remark)
+    int action;     //rule action (0-deny 1-permit, 2-remark)
     int protocol;   //value of used communication protocol
 
-    union ipAdr srcIp_start;    //source port range
-    union ipAdr srcIp_end;
+    union ipAdr srcIpStart;    //source port range
+    union ipAdr srcIpEnd;
 
-    union ipAdr dstIp_start;    //destination port range
-    union ipAdr dstIp_end;
+    union ipAdr dstIpStart;    //destination port range
+    union ipAdr dstIpEnd;
 
-    union ipPort srcPrt_start;  //source port range
-    union ipPort srcPrt_end;
+    union ipPort srcPrtStart;  //source port range
+    union ipPort srcPrtEnd;
 
-    union ipPort dstPrt_start;  //destination port range
-    union ipPort dstPrt_end;
+    union ipPort dstPrtStart;  //destination port range
+    union ipPort dstPrtEnd;
 };
 
 extern error_t

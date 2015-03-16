@@ -10,14 +10,35 @@ valid_rule(char *rawRule){
 }
 
 static int
-parse_action(char *rawAction){
+parse_action_rule(char *rawAction){
+    int newAction;
+    if (strncmp(rawAction, "deny", 4) == 0){
+        newAction = AC_DENY;
+    }
+    else if (strncmp(rawAction, "permit", 6) == 0) {
+        newAction = AC_PERMIT;
+    }
+    else if (strncmp(rawAction, "remark", 6) == 0) {
+        newAction = AC_REMARK;
+    }
+    else{
+        newAction = AC_UNKNOWN;
+    }
+
+    return newAction;
+}
+
+static int
+parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
+        int *tokensExtracted){
     //missing stuff
     return 0;
 }
 
 static int
-parse_address(char *tok1[], union ipAdr addr, union ipAdr wild, unsigned int *charsExtracted){
-
+parse_port_rule(char *token[], union ipPort *startPrt, union ipPort *endPrt,
+        int *tokensExtracted){
+    //missing stuff
     return 0;
 }
 
@@ -32,28 +53,40 @@ parse_rule(struct rule *newRule, char *rawRule, int lineNr){
     strncpy(buff, rawRule, RULESIZE);
     buff[RULESIZE-1] = '\0';
 
-    union ipAdr addr;
-    union ipAdr wild;
-    unsigned int *tokensExtracted = 0;
+    union ipAdr startAdr;
+    union ipAdr endAdr;
+    union ipPort startPrt;
+    union ipPort endPrt;
+    int tokensExtracted = 0;
 
-    newRule->number = lineNr;
-
-    token[0] = strtok(buff, " "); //action
-    newRule->action = parse_action(token[0]);
-    tokensExtracted++;
-
-    token[1] = strtok(NULL, " "); //protocol
-    newRule->protocol = parse_protocol(token[1]);
-    tokensExtracted++;
-
-    for (i = 2; i < 12; ++i){
+    token[0] = strtok(buff, " ");
+    for (i = 1; i < 12; i++){
         token[i] = strtok(NULL, " ");
     }
 
-    parse_address(token, addr, wild, tokensExtracted);
-    //missing stuff
+    newRule->number = lineNr;
 
+    newRule->action = parse_action_rule(token[0]);
+    tokensExtracted++;
+
+    newRule->protocol = parse_protocol_ip(token[1]);
+    tokensExtracted++;
+
+    parse_address_rule(token, &startAdr, &endAdr, &tokensExtracted);
+    newRule->srcIpStart = startAdr;
+    newRule->srcIpEnd = endAdr;
+
+    parse_port_rule(token, &startPrt, &endPrt, &tokensExtracted);
+    newRule->srcPrtStart = startPrt;
+    newRule->srcPrtEnd = endPrt;
+
+    parse_address_rule(token, &startAdr, &endAdr, &tokensExtracted);
+    newRule->dstIpStart = startAdr;
+    newRule->dstIpEnd = endAdr;
+
+    parse_port_rule(token, &startPrt, &endPrt, &tokensExtracted);
+    newRule->dstPrtStart = startPrt;
+    newRule->dstPrtEnd = endPrt;
 
     return SUCCESS;
 }
-
