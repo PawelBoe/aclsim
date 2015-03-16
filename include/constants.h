@@ -5,6 +5,7 @@
 #define BUFSIZE 128
 #define VECTORSIZE 128
 #define RULESIZE 128
+#define IPSIZE 16
 
 //Errorcodes
 enum errors{

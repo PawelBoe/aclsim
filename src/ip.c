@@ -5,21 +5,22 @@
 
 union ipAdr
 parse_ip(char *rawIp){
-    int i, j;
+    int i;
+    char *token[4];
+    char buff[IPSIZE];
+    strncpy(buff, rawIp, IPSIZE);
+    buff[IPSIZE-1] = '\0';
     union ipAdr newAddtess;
-    char token[4][4] = {};
 
-    for(i = 0; i < 4; i++){
-        for(j = 0; *rawIp != '.' && *rawIp != '\0' && j < 3; j++){
-            token[i][j] = *rawIp;
-            rawIp++;
-        }
-        token[i][j] = '\0';
-        rawIp++;
+    token[0] = strtok(buff, ".");
+    for(i = 1; i < 4; i++){
+        token[i] = strtok(NULL, ".");
     }
+
     for(i = 0; i < 4; i++){
         newAddtess.byte[i] = atoi(token[i]);
     }
+
     return newAddtess;
 }
 
