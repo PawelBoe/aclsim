@@ -7,7 +7,7 @@ valid_rule(char *rawRule){
     return 0;
 }
 
-int
+error_t
 parse_rule(struct rule *newRule, char *rawRule, int lineNr){
     //missing validity checking
     valid_rule(rawRule);

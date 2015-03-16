@@ -15,7 +15,7 @@ struct vector{
     char flags[VECTORSIZE];
 };
 
-extern int
+extern error_t
 parse_vector(struct vector *newVector, char *rawVector, int lineNr);
 
 #endif

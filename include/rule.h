@@ -23,7 +23,7 @@ struct rule{
     union ipPort dstPrt_end;
 };
 
-extern int
+extern error_t
 parse_rule(struct rule *newRule, char *rawRule, int lineNr);
 
 #endif

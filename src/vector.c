@@ -9,7 +9,7 @@ valid_vector(char *rawVector){
     return 0;
 }
 
-int
+error_t
 parse_vector(struct vector *newVector, char *rawVector, int lineNr){
     //missing validity checking
     valid_vector(rawVector);
