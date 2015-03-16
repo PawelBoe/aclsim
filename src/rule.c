@@ -39,6 +39,6 @@ parse_rule(struct rule *newRule, char *rawRule, int lineNr){
         case 12: break;
         default: break;
     }
-    return 0;
+    return SUCCESS;
 }
 

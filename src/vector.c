@@ -32,5 +32,5 @@ parse_vector(struct vector *newVector, char *rawVector, int lineNr){
     newVector->dstIp = parse_ip(token[3]);
     newVector->dstPrt = parse_port(token[4]);
     strncpy(newVector->flags, token[5], strlen(token[5])+1);
-    return 0; //success
+    return SUCCESS;
 }
