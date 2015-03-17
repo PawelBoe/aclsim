@@ -12,7 +12,7 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
     if (rule->action == AC_REMARK){
         newMatch->state = ST_NOMATCH;
     }
-    else if (vector->protocol != rule->protocol){
+    else if (vector->protocol != rule->protocol){ //IP as generic accept
         newMatch->state = ST_NOMATCH;
     }
     else if(!(vector->srcIp.byte[0] >= rule->srcIpStart.byte[0]) ||
@@ -31,6 +31,7 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
             !(vector->srcIp.byte[3] <= rule->srcIpEnd.byte[3])){
                 newMatch->state = ST_NOMATCH;
     }
+    //ports missing
     else{
         newMatch->state = rule->action;
     }
