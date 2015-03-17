@@ -40,16 +40,16 @@ void
 print_match(struct match *match){
     switch(match->state){
         case(ST_DENY):
-            printf("match: vectorNr.%d ruleNr.%d deny", match->vectorNr, match->ruleNr);
+            printf("match: vectorNr.%d ruleNr.%d deny\n", match->vectorNr, match->ruleNr);
             break;
         case(ST_PERMIT):
-            printf("match: vectorNr.%d ruleNr.%d permit", match->vectorNr, match->ruleNr);
+            printf("match: vectorNr.%d ruleNr.%d permit\n", match->vectorNr, match->ruleNr);
             break;
         case(ST_NOMATCH):
-            printf("nomatch: vectorNr.%d ruleNr.%d", match->vectorNr, match->ruleNr);
+            printf("nomatch: vectorNr.%d ruleNr.%d\n", match->vectorNr, match->ruleNr);
             break;
         default:
-            printf("error: vectorNr.%d ruleNr.%d", match->vectorNr, match->ruleNr);
+            printf("error: vectorNr.%d ruleNr.%d\n", match->vectorNr, match->ruleNr);
             break;
     }
 }

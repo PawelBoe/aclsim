@@ -19,6 +19,10 @@ main(int argc, char *argv[])
     while(fgets(STRING, VECTORSIZE-1, stdin)) {
         if(STRING[strlen(STRING)-1] != '\n')
             skipLine(stdin);
+
+        STRING[strlen(STRING)-1] = '\0';
+        printf("Eingabe: |%s|\n",STRING);
+
         parse_rule(&TEST, STRING, number);
         printf("|%d|%d|%d|%d %d %d %d|%d %d %d %d|%d %d %d %d|%d %d %d %d|%d|%d|%d|%d\n",
 

@@ -43,8 +43,8 @@ parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
         *tokensExtracted += 2;
     }
     else{
-        *startAdr = parse_address_ip(token[*tokensExtracted + 1]);
-        *endAdr = parse_address_ip(token[*tokensExtracted + 2]);
+        *startAdr = parse_address_ip(token[*tokensExtracted]);
+        *endAdr = parse_address_ip(token[*tokensExtracted + 1]);
         transform_wildcard_ip(startAdr, endAdr);
         *tokensExtracted += 2;
     }
@@ -100,10 +100,15 @@ parse_rule(struct rule *newRule, char *rawRule, int lineNr){
     union ipPort endPrt;
     int tokensExtracted = 0;
 
+    for(i = 0; i < 12; i++){ //initialize tokens (no NULL-Ptr!)
+        token[i] = "";
+    }
+
     token[0] = strtok(buff, " ");
-    for (i = 1; i < 12; i++){
+    for (i = 1; i < 12 && token[i-1] != NULL; i++){
         token[i] = strtok(NULL, " ");
     }
+    token[i-1] = ""; //no NULL-Ptr!
 
     newRule->number = lineNr;
 

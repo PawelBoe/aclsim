@@ -34,6 +34,7 @@ main(int argc, char **argv){
         if(vectorbuf[strlen(vectorbuf)-1] != '\n'){
             skipLine(stdin);
         }
+        vectorbuf[strlen(vectorbuf)-1] = '\0';
         if(parse_vector(&vector, vectorbuf, vectorNr) != SUCCESS){ //errorcodes
             continue;
         }
@@ -41,7 +42,8 @@ main(int argc, char **argv){
             if(rulebuf[strlen(rulebuf)-1] != '\n'){
                 skipLine(acl);
             }
-            if(parse_rule(&rule, rulebuf, ruleNr) != SUCCESS){ //to do + errorcodes
+            rulebuf[strlen(rulebuf)-1] = '\0';
+            if(parse_rule(&rule, rulebuf, ruleNr) != SUCCESS){ //errorcodes
                 continue;
             }
             check_match(&match, &vector, &rule); //errorcodes
