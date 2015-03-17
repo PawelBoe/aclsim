@@ -24,4 +24,7 @@ parse_port_ip(char *rawPort);
 extern int
 parse_protocol_ip(char *rawProtocol);
 
+extern void
+transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard);
+
 #endif

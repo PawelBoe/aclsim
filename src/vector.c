@@ -3,10 +3,10 @@
 #include "ip.h"
 
 
-static int
+static error_t
 valid_vector(char *rawVector){
     //missing stuff
-    return 0;
+    return SUCCESS;
 }
 
 error_t

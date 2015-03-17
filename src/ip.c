@@ -55,3 +55,19 @@ parse_protocol_ip(char *rawProtocol){
 
     return newProtocol;
 }
+
+void
+transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard){
+    int i;
+    union ipAdr tmp;
+
+    for (i = 0; i < 4; i++){
+        tmp.byte[i] = address->byte[i] &~ wildcard->byte[i];
+    }
+    *address = tmp;
+
+    for (i = 0; i < 4; i++){
+        tmp.byte[i] = address->byte[i] | wildcard->byte[i];
+    }
+    *wildcard = tmp;
+}

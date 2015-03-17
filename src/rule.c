@@ -1,12 +1,13 @@
 #include <string.h>
+#include <stdlib.h>
 #include "rule.h"
 #include "ip.h"
 
 
-static int
+static error_t
 valid_rule(char *rawRule){
     //missing stuff
-    return 0;
+    return SUCCESS;
 }
 
 static int
@@ -28,18 +29,58 @@ parse_action_rule(char *rawAction){
     return newAction;
 }
 
-static int
+static error_t
 parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
         int *tokensExtracted){
-    //missing stuff
-    return 0;
+    if(strncmp(token[*tokensExtracted], "any", 3) == 0){
+        startAdr->value = 0x00000000;
+        endAdr->value = 0xFFFFFFFF;
+        *tokensExtracted += 1;
+    }
+    else if (strncmp(token[*tokensExtracted], "host", 4) == 0){
+        *startAdr = parse_address_ip(token[*tokensExtracted + 1]);
+        *endAdr = *startAdr;
+        *tokensExtracted += 2;
+    }
+    else{
+        *startAdr = parse_address_ip(token[*tokensExtracted + 1]);
+        *endAdr = parse_address_ip(token[*tokensExtracted + 2]);
+        transform_wildcard_ip(startAdr, endAdr);
+        *tokensExtracted += 2;
+    }
+
+    return SUCCESS;
 }
 
-static int
+static error_t
 parse_port_rule(char *token[], union ipPort *startPrt, union ipPort *endPrt,
         int *tokensExtracted){
-    //missing stuff
-    return 0;
+    if(strncmp(token[*tokensExtracted], "eq", 2) == 0){
+        *startPrt = parse_port_ip(token[*tokensExtracted + 1]);
+        *endPrt = *startPrt;
+        *tokensExtracted += 2;
+    }
+    else if (strncmp(token[*tokensExtracted], "gt", 2) == 0){
+        *startPrt = parse_port_ip(token[*tokensExtracted + 1]);
+        endPrt->value = 0xFFFF;
+        *tokensExtracted += 2;
+    }
+    else if (strncmp(token[*tokensExtracted], "lt", 2) == 0){
+        startPrt->value = 0x0000;
+        *endPrt = parse_port_ip(token[*tokensExtracted + 1]);
+        *tokensExtracted += 2;
+    }
+    else if (strncmp(token[*tokensExtracted], "range", 5) == 0){
+        *startPrt = parse_port_ip(token[*tokensExtracted + 1]);
+        *endPrt = parse_port_ip(token[*tokensExtracted + 2]);
+        *tokensExtracted += 3;
+    }
+    else {
+        startPrt->value = 0x0000;
+        endPrt->value = 0xFFFF;
+    }
+
+    return SUCCESS;
 }
 
 error_t
