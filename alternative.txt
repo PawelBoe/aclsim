@@ -1,4 +1,0 @@
-This is the alternative branch
-Here I make changes that are experimental and maybe not
-even ready for save use. Don't be angry. If you want to
-test the 'real' program, then please switch to 'master'.
