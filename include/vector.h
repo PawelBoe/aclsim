@@ -16,6 +16,6 @@ struct vector{
 };
 
 extern error_t
-parse_vector(struct vector *newVector, char *rawVector, int lineNr);
+parse_vector(struct vector *newVector, char *rawVector, int *lineNr);
 
 #endif

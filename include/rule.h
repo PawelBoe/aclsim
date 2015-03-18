@@ -18,12 +18,14 @@ struct rule{
 
     union ipPrt srcPrtStart;  //source port range
     union ipPrt srcPrtEnd;
+    int srcPrtNeg;            //neq detection
 
     union ipPrt dstPrtStart;  //destination port range
     union ipPrt dstPrtEnd;
+    int dstPrtNeg;            //neq detection
 };
 
 extern error_t
-parse_rule(struct rule *newRule, char *rawRule, int lineNr);
+parse_rule(struct rule *newRule, char *rawRule, int *lineNr);
 
 #endif

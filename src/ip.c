@@ -3,30 +3,34 @@
 #include "ip.h"
 
 
-union ipAdr
-parse_address_ip(char *rawIp){
+error_t
+parse_address_ip(union ipAdr *newAddress, char *rawIp){
     int i;
     char *token[4];
     char buff[IPSIZE];
     strncpy(buff, rawIp, IPSIZE);
     buff[IPSIZE-1] = '\0';
-    union ipAdr newAddress;
+
+    for(i = 0; i < 4; i++){ //initialize tokens (no NULL-Ptr!)
+        token[i] = "";
+    }
 
     token[0] = strtok(buff, ".");
-    for(i = 1; i < 4; i++){
+    for(i = 1; i < 4 && token[i-1] != NULL; i++){
         token[i] = strtok(NULL, ".");
     }
+    token[i-1] = ""; //no NULL-Ptr!
 
     for(i = 0; i < 4; i++){
-        newAddress.byte[i] = atoi(token[i]);
+        newAddress->byte[i] = atoi(token[i]);
     }
 
-    return newAddress;
+    return SUCCESS;
 }
 
-error_t
+static error_t
 transform_port_ip(union ipPrt *newPort, char *rawPort){
-    error_t transformState = SUCCESS;
+    error_t status = SUCCESS;
 
     if (strncmp(rawPort, "smtp", 4) == 0){
         newPort->value = PORT_SMTP;
@@ -75,47 +79,46 @@ transform_port_ip(union ipPrt *newPort, char *rawPort){
     }
 
     else{
-        transformState = ERR_VALUE;
+        status = ERR_GENERIC;
     }
 
-    return transformState;
+    return status;
 }
 
-union ipPrt
-parse_port_ip(char *rawPort){
-    union ipPrt newPort;
-    if (transform_port_ip(&newPort, rawPort) != SUCCESS){
-        newPort.value = atoi(rawPort);
+error_t
+parse_port_ip(union ipPrt *newPort, char *rawPort){
+    if (transform_port_ip(newPort, rawPort) != SUCCESS){
+        newPort->value = atoi(rawPort);
     }
-    return newPort;
+
+    return SUCCESS;
 }
 
-int
-parse_protocol_ip(char *rawProtocol){
-    int newProtocol;
+error_t
+parse_protocol_ip(int *newProtocol, char *rawProtocol){
     if (strncmp(rawProtocol, "tcp", 3) == 0){
-       newProtocol = PROTO_TCP;
+       *newProtocol = PROTO_TCP;
     }
     else if(strncmp(rawProtocol, "udp", 3) == 0){
-        newProtocol = PROTO_UDP;
+        *newProtocol = PROTO_UDP;
     }
     else if(strncmp(rawProtocol, "esp", 3) == 0){
-        newProtocol = PROTO_ESP;
+        *newProtocol = PROTO_ESP;
     }
     else if(strncmp(rawProtocol, "icmp", 4) == 0){
-        newProtocol = PROTO_ICMP;
+        *newProtocol = PROTO_ICMP;
     }
     else if(strncmp(rawProtocol, "ip", 2) == 0){
-        newProtocol = PROTO_IP;
+        *newProtocol = PROTO_IP;
     }
     else{
-        newProtocol = PROTO_UNKNOWN;
+        *newProtocol = PROTO_UNKNOWN;
     }
 
-    return newProtocol;
+    return SUCCESS;
 }
 
-void
+error_t
 transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard){
     int i;
     union ipAdr tmp;
@@ -129,4 +132,6 @@ transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard){
         tmp.byte[i] = address->byte[i] | wildcard->byte[i];
     }
     *wildcard = tmp;
+
+    return SUCCESS;
 }

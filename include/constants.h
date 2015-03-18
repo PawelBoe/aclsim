@@ -10,9 +10,7 @@
 //Errorcodes
 enum errors{
     SUCCESS = 0,
-    ERR_UNKNOWN = 1,
-    ERR_SYNTAX = 2,
-    ERR_VALUE = 3
+    ERR_GENERIC = 1,
 };
 
 typedef enum errors error_t;
@@ -26,6 +24,7 @@ typedef enum errors error_t;
 //Match states
 #define ST_DENY 0
 #define ST_PERMIT 1
+#define ST_REMARK 2
 #define ST_NOMATCH -1
 
 //Protocols

@@ -15,16 +15,16 @@ union ipPrt{
     uint16_t value;
 };
 
-extern union ipAdr
-parse_address_ip(char *rawIp);
+extern error_t
+parse_address_ip(union ipAdr *newAddress, char *rawIp);
 
-extern union ipPrt
-parse_port_ip(char *rawPort);
+extern error_t
+parse_port_ip(union ipPrt *newPort, char *rawPort);
 
-extern int
-parse_protocol_ip(char *rawProtocol);
+extern error_t
+parse_protocol_ip(int *newProtocol, char *rawProtocol);
 
-extern void
+extern error_t
 transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard);
 
 #endif

@@ -4,13 +4,13 @@
 #include "vector.h"
 
 
-void
+error_t
 check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
     newMatch->vectorNr = vector->number;
     newMatch->ruleNr = rule->number;
 
     if (rule->action == AC_REMARK){
-        newMatch->state = ST_NOMATCH;
+        newMatch->state = ST_REMARK;
     }
     else if (vector->protocol != rule->protocol && rule->protocol != PROTO_IP){
         newMatch->state = ST_NOMATCH;
@@ -50,34 +50,54 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
                 newMatch->state = ST_NOMATCH;
     }
 
-    else if(!(vector->srcPrt.value >= rule->srcPrtStart.value) ||
-            !(vector->srcPrt.value <= rule->srcPrtEnd.value)){
+    else if(rule->srcPrtNeg &&
+            (vector->srcPrt.value >= rule->srcPrtStart.value) &&
+            (vector->srcPrt.value <= rule->srcPrtEnd.value)){
                 newMatch->state = ST_NOMATCH;
     }
-    else if(!(vector->dstPrt.value >= rule->dstPrtStart.value) ||
-            !(vector->dstPrt.value <= rule->dstPrtEnd.value)){
+    else if(!rule->srcPrtNeg &&
+            (!(vector->srcPrt.value >= rule->srcPrtStart.value) ||
+            !(vector->srcPrt.value <= rule->srcPrtEnd.value))){
+                newMatch->state = ST_NOMATCH;
+    }
+
+    else if(rule->dstPrtNeg &&
+            (vector->dstPrt.value >= rule->dstPrtStart.value) &&
+            (vector->dstPrt.value <= rule->dstPrtEnd.value)){
+                newMatch->state = ST_NOMATCH;
+    }
+    else if(!rule->dstPrtNeg &&
+            (!(vector->dstPrt.value >= rule->dstPrtStart.value) ||
+            !(vector->dstPrt.value <= rule->dstPrtEnd.value))){
                 newMatch->state = ST_NOMATCH;
     }
 
     else{
         newMatch->state = rule->action;
     }
+
+    return SUCCESS;
 }
 
-void
+error_t
 print_match(struct match *match){
     switch(match->state){
         case(ST_DENY):
-            printf("match: vectorNr.%d ruleNr.%d deny\n", match->vectorNr, match->ruleNr);
+            printf("match: vector %d rule %d deny\n", match->vectorNr, match->ruleNr);
             break;
         case(ST_PERMIT):
-            printf("match: vectorNr.%d ruleNr.%d permit\n", match->vectorNr, match->ruleNr);
+            printf("match: vector %d rule %d permit\n", match->vectorNr, match->ruleNr);
+            break;
+        case(ST_REMARK):
+            //ignore comment
             break;
         case(ST_NOMATCH):
-            printf("nomatch: vectorNr.%d ruleNr.%d\n", match->vectorNr, match->ruleNr);
+            printf("nomatch: vector %d rule %d\n", match->vectorNr, match->ruleNr);
             break;
         default:
-            printf("error: vectorNr.%d ruleNr.%d\n", match->vectorNr, match->ruleNr);
+            printf("error: vector %d rule %d\n", match->vectorNr, match->ruleNr);
             break;
     }
+
+    return SUCCESS;
 }
