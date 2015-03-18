@@ -6,6 +6,8 @@
 
 static error_t
 parse_action_rule(int * newAction, char *rawAction){
+    error_t status = SUCCESS;
+
     if (strncmp(rawAction, "deny", 4) == 0){
         *newAction = AC_DENY;
     }
@@ -17,9 +19,10 @@ parse_action_rule(int * newAction, char *rawAction){
     }
     else{
         *newAction = AC_UNKNOWN;
+        status = ERR_GENERIC;
     }
 
-    return SUCCESS;
+    return status;
 }
 
 static error_t
