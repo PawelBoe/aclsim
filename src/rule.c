@@ -53,7 +53,7 @@ parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
 }
 
 static error_t
-parse_port_rule(char *token[], union ipPort *startPrt, union ipPort *endPrt,
+parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
         int *tokensExtracted){
     if(strncmp(token[*tokensExtracted], "eq", 2) == 0){
         *startPrt = parse_port_ip(token[*tokensExtracted + 1]);
@@ -96,8 +96,8 @@ parse_rule(struct rule *newRule, char *rawRule, int lineNr){
 
     union ipAdr startAdr;
     union ipAdr endAdr;
-    union ipPort startPrt;
-    union ipPort endPrt;
+    union ipPrt startPrt;
+    union ipPrt endPrt;
     int tokensExtracted = 0;
 
     for(i = 0; i < 12; i++){ //initialize tokens (no NULL-Ptr!)

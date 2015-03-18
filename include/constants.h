@@ -117,5 +117,5 @@ typedef enum errors error_t;
 #define PORT_NFSD 2049             /** nfsd */
 #define PORT_CVSPSERVER 2401       /** cvspserver */
 #define PORT_NON500_ISAKMP 4500    /** non500-isakmp */
-
+#define PORT_UNKNOWN -1
 #endif

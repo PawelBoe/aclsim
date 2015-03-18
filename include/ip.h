@@ -10,7 +10,7 @@ union ipAdr{
     uint32_t value;
 };
 
-union ipPort{
+union ipPrt{
     uint8_t byte[2];
     uint16_t value;
 };
@@ -18,7 +18,7 @@ union ipPort{
 extern union ipAdr
 parse_address_ip(char *rawIp);
 
-extern union ipPort
+extern union ipPrt
 parse_port_ip(char *rawPort);
 
 extern int

@@ -16,11 +16,11 @@ struct rule{
     union ipAdr dstIpStart;    //destination port range
     union ipAdr dstIpEnd;
 
-    union ipPort srcPrtStart;  //source port range
-    union ipPort srcPrtEnd;
+    union ipPrt srcPrtStart;  //source port range
+    union ipPrt srcPrtEnd;
 
-    union ipPort dstPrtStart;  //destination port range
-    union ipPort dstPrtEnd;
+    union ipPrt dstPrtStart;  //destination port range
+    union ipPrt dstPrtEnd;
 };
 
 extern error_t
