@@ -20,7 +20,9 @@ parse_vector(struct vector *newVector, char *rawVector, int *lineNr){
     for (i = 1; i < 6 && token[i-1] != NULL; i++){
         token[i] = strtok(NULL, " \n");
     }
-    token[i-1] = ""; //no NULL-Ptr!
+    if (token[i-1] == NULL){
+        token[i-1] = ""; //no NULL-Ptr!
+    }
 
     newVector->number = *lineNr;
     (*lineNr)++;

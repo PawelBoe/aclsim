@@ -81,6 +81,7 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
 
 error_t
 print_match(struct match *match){
+    error_t status = SUCCESS;
     switch(match->state){
         case(ST_DENY):
             printf("match: vector %d rule %d deny\n", match->vectorNr, match->ruleNr);
@@ -96,8 +97,9 @@ print_match(struct match *match){
             break;
         default:
             printf("error: vector %d rule %d\n", match->vectorNr, match->ruleNr);
+            status = ERR_GENERIC;
             break;
     }
 
-    return SUCCESS;
+    return status;
 }

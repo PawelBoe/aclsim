@@ -5,6 +5,7 @@
 
 error_t
 parse_address_ip(union ipAdr *newAddress, char *rawIp){
+    error_t status = SUCCESS;
     int i;
     char *token[4];
     char buff[IPSIZE];
@@ -19,13 +20,15 @@ parse_address_ip(union ipAdr *newAddress, char *rawIp){
     for(i = 1; i < 4 && token[i-1] != NULL; i++){
         token[i] = strtok(NULL, ".");
     }
-    token[i-1] = ""; //no NULL-Ptr!
-
-    for(i = 0; i < 4; i++){
-        newAddress->byte[i] = atoi(token[i]);
+    if (token[i-1] == NULL){
+        token[i-1] = ""; //no NULL-Ptr!
     }
 
-    return SUCCESS;
+    for(i = 0; i < 4; i++){
+        newAddress->byte[i] = atoi(token[i]); //change to strtol
+    }
+
+    return status;
 }
 
 static error_t
@@ -88,7 +91,7 @@ transform_port_ip(union ipPrt *newPort, char *rawPort){
 error_t
 parse_port_ip(union ipPrt *newPort, char *rawPort){
     if (transform_port_ip(newPort, rawPort) != SUCCESS){
-        newPort->value = atoi(rawPort);
+        newPort->value = atoi(rawPort); //change to strtol
     }
 
     return SUCCESS;
@@ -96,6 +99,7 @@ parse_port_ip(union ipPrt *newPort, char *rawPort){
 
 error_t
 parse_protocol_ip(int *newProtocol, char *rawProtocol){
+    error_t status = SUCCESS;
     if (strncmp(rawProtocol, "tcp", 3) == 0){
        *newProtocol = PROTO_TCP;
     }
@@ -113,9 +117,10 @@ parse_protocol_ip(int *newProtocol, char *rawProtocol){
     }
     else{
         *newProtocol = PROTO_UNKNOWN;
+        status = ERR_GENERIC;
     }
 
-    return SUCCESS;
+    return status;
 }
 
 error_t
