@@ -1,10 +1,52 @@
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "ip.h"
 
 
+static error_t
+copy_uint8_ip(void *value, long castedValue){
+    error_t status = SUCCESS;
+
+    if (castedValue > UCHAR_MAX || castedValue < 0){
+        status |= ERR_GENERIC;
+    }
+    uint8_t *destination = (uint8_t*) value;
+    *destination = (uint8_t) castedValue;
+
+    return status;
+}
+
+static error_t
+copy_uint16_ip(void *value, long castedValue){
+    error_t status = SUCCESS;
+
+    if (castedValue > USHRT_MAX || castedValue < 0){
+        status |= ERR_GENERIC;
+    }
+    uint16_t *destination = (uint16_t*) value;
+    *destination = (uint16_t)castedValue;
+
+    return status;
+}
+
+static error_t
+parse_int_ip(void *value, const char *string, error_t (*copy)(void*, long)){
+    error_t status = SUCCESS;
+    char *temp;
+    long castedValue;
+
+    castedValue = strtol(string, &temp, 10);
+    status |= copy(value, castedValue);
+
+    if (temp == string || *temp != '\0'){
+       status |= ERR_GENERIC;
+    }
+    return status;
+}
+
 error_t
-parse_address_ip(union ipAdr *newAddress, char *rawIp){
+parse_address_ip(union ipAdr *newAddress, const char *rawIp){
     error_t status = SUCCESS;
     int i;
     char *token[4];
@@ -25,14 +67,14 @@ parse_address_ip(union ipAdr *newAddress, char *rawIp){
     }
 
     for(i = 0; i < 4; i++){
-        newAddress->byte[i] = atoi(token[i]); //change to strtol
+        status |= parse_int_ip(&newAddress->byte[i], token[i], copy_uint8_ip);
     }
 
     return status;
 }
 
 static error_t
-transform_port_ip(union ipPrt *newPort, char *rawPort){
+transform_port_ip(union ipPrt *newPort, const char *rawPort){
     error_t status = SUCCESS;
 
     if (strncmp(rawPort, "smtp", 4) == 0){
@@ -82,23 +124,24 @@ transform_port_ip(union ipPrt *newPort, char *rawPort){
     }
 
     else{
-        status = ERR_GENERIC;
+        status |= ERR_GENERIC;
     }
 
     return status;
 }
 
 error_t
-parse_port_ip(union ipPrt *newPort, char *rawPort){
+parse_port_ip(union ipPrt *newPort, const char *rawPort){
+    error_t status = SUCCESS;
     if (transform_port_ip(newPort, rawPort) != SUCCESS){
-        newPort->value = atoi(rawPort); //change to strtol
+        status |= parse_int_ip(&newPort->value, rawPort, copy_uint16_ip);
     }
 
-    return SUCCESS;
+    return status;
 }
 
 error_t
-parse_protocol_ip(int *newProtocol, char *rawProtocol){
+parse_protocol_ip(int *newProtocol, const char *rawProtocol){
     error_t status = SUCCESS;
     if (strncmp(rawProtocol, "tcp", 3) == 0){
        *newProtocol = PROTO_TCP;
@@ -117,13 +160,13 @@ parse_protocol_ip(int *newProtocol, char *rawProtocol){
     }
     else{
         *newProtocol = PROTO_UNKNOWN;
-        status = ERR_GENERIC;
+        status |= ERR_GENERIC;
     }
 
     return status;
 }
 
-error_t
+void
 transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard){
     int i;
     union ipAdr tmp;
@@ -137,6 +180,4 @@ transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard){
         tmp.byte[i] = address->byte[i] | wildcard->byte[i];
     }
     *wildcard = tmp;
-
-    return SUCCESS;
 }

@@ -28,56 +28,60 @@ parse_action_rule(int * newAction, char *rawAction){
 static error_t
 parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
         int *tokensExtracted){
+    error_t status = SUCCESS;
+
     if(strncmp(token[*tokensExtracted], "any", 3) == 0){
         startAdr->value = 0x00000000;
         endAdr->value = 0xFFFFFFFF;
         *tokensExtracted += 1;
     }
     else if (strncmp(token[*tokensExtracted], "host", 4) == 0){
-        parse_address_ip(startAdr, token[*tokensExtracted + 1]);
+        status |= parse_address_ip(startAdr, token[*tokensExtracted + 1]);
         *endAdr = *startAdr;
         *tokensExtracted += 2;
     }
     else{
-        parse_address_ip(startAdr, token[*tokensExtracted]);
-        parse_address_ip(endAdr, token[*tokensExtracted + 1]);
+        status |= parse_address_ip(startAdr, token[*tokensExtracted]);
+        status |= parse_address_ip(endAdr, token[*tokensExtracted + 1]);
         transform_wildcard_ip(startAdr, endAdr);
         *tokensExtracted += 2;
     }
 
-    return SUCCESS;
+    return status;
 }
 
 static error_t
 parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
         int *prtNeg, int *tokensExtracted){
+    error_t status = SUCCESS;
+
     if(strncmp(token[*tokensExtracted], "eq", 2) == 0){
-        parse_port_ip(startPrt, token[*tokensExtracted + 1]);
+        status |= parse_port_ip(startPrt, token[*tokensExtracted + 1]);
         *endPrt = *startPrt;
         *prtNeg = 0;
         *tokensExtracted += 2;
     }
     else if (strncmp(token[*tokensExtracted], "neq", 3) == 0){
-        parse_port_ip(startPrt, token[*tokensExtracted + 1]);
+        status |= parse_port_ip(startPrt, token[*tokensExtracted + 1]);
         *endPrt = *startPrt;
         *prtNeg = 1;
         *tokensExtracted += 2;
     }
     else if (strncmp(token[*tokensExtracted], "gt", 2) == 0){
-        parse_port_ip(startPrt, token[*tokensExtracted + 1]);
+        status |= parse_port_ip(startPrt, token[*tokensExtracted + 1]);
         endPrt->value = 0xFFFF;
         *prtNeg = 0;
         *tokensExtracted += 2;
     }
     else if (strncmp(token[*tokensExtracted], "lt", 2) == 0){
         startPrt->value = 0x0000;
-        parse_port_ip(endPrt, token[*tokensExtracted + 1]);
+        status |= parse_port_ip(endPrt, token[*tokensExtracted + 1]);
         *prtNeg = 0;
         *tokensExtracted += 2;
     }
     else if (strncmp(token[*tokensExtracted], "range", 5) == 0){
-        parse_port_ip(startPrt, token[*tokensExtracted + 1]);
-        parse_port_ip(endPrt, token[*tokensExtracted + 2]);
+        status |= parse_port_ip(startPrt, token[*tokensExtracted + 1]);
+        status |= parse_port_ip(endPrt, token[*tokensExtracted + 2]);
         *prtNeg = 0;
         *tokensExtracted += 3;
     }
@@ -87,7 +91,7 @@ parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
         *prtNeg = 0;
     }
 
-    return SUCCESS;
+    return status;
 }
 
 error_t
