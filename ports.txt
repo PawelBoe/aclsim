@@ -1,0 +1,19 @@
+-----------------------------------------------------------
+This is a list of available port aliases for the ACL rules
+-----------------------------------------------------------
+
+    smtp
+    domain
+    syslog
+    snmp
+    tftp
+    netbios-ss
+    isakmp
+    non500-isakmp
+    bgp
+    ssh
+    www
+    ftp
+    ftp-data
+    telnet
+    https
