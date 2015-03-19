@@ -8,9 +8,9 @@ Installation:
 
 The usage of this program is as follows: ./aclsim ruleFile  vectorFile
 
-Rule syntax: action> protocol> sourceIp> (operation port(s)) destinationIp> (operation port(s))
+Rule syntax: action protocol sourceIp (operation port(s)) destinationIp (operation port(s))
 
-Vector syntax: protocol> sourceIp> sourcePort> destinationIp> destinationPort> (flags)
+Vector syntax: protocol sourceIp sourcePort destinationIp destinationPort (flags)
 
 - Actions: permit, deny, remark
 - Protocols: ip, tcp, udp, icmp, esp
