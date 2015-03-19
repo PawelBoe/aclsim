@@ -96,7 +96,8 @@ print_match(struct match *match){
             printf("nomatch: vector %d rule %d\n", match->vectorNr, match->ruleNr);
             break;
         default:
-            printf("error: vector %d rule %d\n", match->vectorNr, match->ruleNr);
+            //shouldn´t reach this point
+            fprintf(stderr, "error: vector %d rule %d\n", match->vectorNr, match->ruleNr);
             status = ERR_GENERIC;
             break;
     }

@@ -121,25 +121,25 @@ parse_rule(struct rule *newRule, char *rawRule, int *lineNr){
 
     status |= parse_action_rule(&newRule->action, token[0]);
     tokensExtracted++;
-    //only count if a rule was parsed
+    //only count if a rule was parsed, ignore invalid actions
     if (newRule->action == AC_DENY || newRule->action == AC_PERMIT){
         (*lineNr)++;
-    }
 
-    status |= parse_protocol_ip(&newRule->protocol, token[1]);
-    tokensExtracted++;
+        status |= parse_protocol_ip(&newRule->protocol, token[1]);
+        tokensExtracted++;
 
-    status |= parse_address_rule(token, &newRule->srcIpStart,
+        status |= parse_address_rule(token, &newRule->srcIpStart,
             &newRule->srcIpEnd, &tokensExtracted);
 
-    status |= parse_port_rule(token, &newRule->srcPrtStart,
+        status |= parse_port_rule(token, &newRule->srcPrtStart,
             &newRule->srcPrtEnd, &newRule->srcPrtNeg, &tokensExtracted);
 
-    status |= parse_address_rule(token, &newRule->dstIpStart,
+        status |= parse_address_rule(token, &newRule->dstIpStart,
             &newRule->dstIpEnd, &tokensExtracted);
 
-    status |= parse_port_rule(token, &newRule->dstPrtStart,
+        status |= parse_port_rule(token, &newRule->dstPrtStart,
             &newRule->dstPrtEnd, &newRule->dstPrtNeg, &tokensExtracted);
+    }
 
     return status;
 }
