@@ -17,7 +17,7 @@ $(BIN): $(OBJ)
 	mkdir -p $(ODIR)
 	mv $(BIN) $(BDIR)
 	mv $(OBJ) $(ODIR)
-	@echo finished successfully!
+	@echo build successfully!
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@
 clean:

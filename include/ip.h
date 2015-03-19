@@ -10,18 +10,21 @@ union ipAdr{
     uint32_t value;
 };
 
-union ipPort{
+union ipPrt{
     uint8_t byte[2];
     uint16_t value;
 };
 
-union ipAdr
-parse_ip(char *rawIp);
+extern error_t
+parse_address_ip(union ipAdr *newAddress, const char *rawIp);
 
-union ipPort
-parse_port(char *rawPort);
+extern error_t
+parse_port_ip(union ipPrt *newPort, const char *rawPort);
 
-int
-parse_protocol(char *rawProtocol);
+extern error_t
+parse_protocol_ip(int *newProtocol, const char *rawProtocol);
+
+extern void
+transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard);
 
 #endif

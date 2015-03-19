@@ -1,0 +1,5 @@
+permit ip any any
+deny tcp host 123.111.222.1 any
+deny udp any eq 500 any range 300 1000
+deny icmp any gt 500 host 123.111.222.1 lt 100
+permit tcp 123.111.222.0 0.0.0.255 any range 1000 2000

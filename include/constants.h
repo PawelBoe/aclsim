@@ -5,14 +5,35 @@
 #define BUFSIZE 128
 #define VECTORSIZE 128
 #define RULESIZE 128
+#define IPSIZE 16
+
+//Errorcodes
+enum errors{
+    SUCCESS = 0,
+    ERR_GENERIC = 1,
+};
+
+typedef enum errors error_t;
+
+//Actions
+#define AC_DENY 0
+#define AC_PERMIT 1
+#define AC_REMARK 2
+#define AC_UNKNOWN -1
+
+//Match states
+#define ST_DENY 0
+#define ST_PERMIT 1
+#define ST_REMARK 2
+#define ST_NOMATCH -1
 
 //Protocols
-#define PROTO_UNKNOWN -1
 #define PROTO_IP 0
 #define PROTO_TCP 1
 #define PROTO_UDP 2
 #define PROTO_ESP 3
 #define PROTO_ICMP 4
+#define PROTO_UNKNOWN -1
 
 //Ports
 #define PORT_ECHO 7                /** echo */
@@ -95,5 +116,5 @@
 #define PORT_NFSD 2049             /** nfsd */
 #define PORT_CVSPSERVER 2401       /** cvspserver */
 #define PORT_NON500_ISAKMP 4500    /** non500-isakmp */
-
+#define PORT_UNKNOWN -1
 #endif

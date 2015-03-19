@@ -9,13 +9,13 @@
 struct match{
     int ruleNr;
     int vectorNr;
-    int state; //deny 0, permit 1, nomatch/remark -1
+    int state;
 };
 
-void
+extern error_t
 check_match(struct match *newMatch, struct vector *vector, struct rule *rule);
 
-void
+extern error_t
 print_match(struct match *match);
 
 #endif

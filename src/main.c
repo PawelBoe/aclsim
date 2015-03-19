@@ -29,25 +29,26 @@ main(int argc, char **argv){
         return 1;
     }
 
-    //missing match break, ignore remarks, validity cheacking
-    for(vectorNr = 0; fgets(vectorbuf, VECTORSIZE-1, stdin); vectorNr++){
+    for(vectorNr = 0; fgets(vectorbuf, VECTORSIZE-1, stdin); ){
         if(vectorbuf[strlen(vectorbuf)-1] != '\n'){
             skipLine(stdin);
         }
-        if(!valid_vector(vectorbuf)){
+        vectorbuf[strlen(vectorbuf)-1] = '\0';
+        if(parse_vector(&vector, vectorbuf, &vectorNr) != SUCCESS){
+            fprintf(stderr, "Error occured in vector %d\n", vectorNr);
             continue;
         }
-        parse_vector(&vector, vectorbuf, vectorNr); //errorcodes?
-        for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ruleNr++){
+        for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ){
             if(rulebuf[strlen(rulebuf)-1] != '\n'){
                 skipLine(acl);
             }
-            if(!valid_rule(rulebuf)){
+            rulebuf[strlen(rulebuf)-1] = '\0';
+            if(parse_rule(&rule, rulebuf, &ruleNr) != SUCCESS){
+                fprintf(stderr, "Error occured in rule %d\n", ruleNr);
                 continue;
             }
-            parse_rule(&rule, rulebuf, ruleNr); //to do + errorcodes?
-            check_match(&match, &vector, &rule); //errorcodes?
-            print_match(&match); //errorcodes?
+            check_match(&match, &vector, &rule);
+            print_match(&match);
         }
         rewind(acl);
     }
