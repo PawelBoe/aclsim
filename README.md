@@ -14,10 +14,10 @@ Rule syntax:
 Vector syntax:
 - protocol sourceIp sourcePort destinationIp destinationPort (flags)
 
-Actions: permit, deny, remark
-Protocols: ip, tcp, udp, icmp, esp
-Port operations: eq, neq, gt, lt, range
-IP address operations: any, host, (wildcard format)
+- Actions: permit, deny, remark
+- Protocols: ip, tcp, udp, icmp, esp
+- Port operations: eq, neq, gt, lt, range
+- IP address operations: any, host, (wildcard format)
 
 
 I´m just learning C, meaning that at this stage the program probably contains some bad programming, consider yourself warned..
