@@ -8,4 +8,16 @@ Installation:
 
 The usage of this program is as follows: ./aclsim ruleFile < vectorFile
 
+Rule syntax:
+- action protocol sourceIp (operation port(s)) destinationIp (operation port(s))
+
+Vector syntax:
+- protocol sourceIp sourcePort destinationIp destinationPort (flags)
+
+Actions: permit, deny, remark
+Protocols: ip, tcp, udp, icmp, esp
+Port operations: eq, neq, gt, lt, range
+IP address operations: any, host, (wildcard format)
+
+
 I´m just learning C, meaning that at this stage the program probably contains some bad programming, consider yourself warned..
