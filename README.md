@@ -16,6 +16,7 @@ Vector syntax: protocol sourceIp sourcePort destinationIp destinationPort (flags
 - Protocols: ip, tcp, udp, icmp, esp
 - Port operations: eq, neq, gt, lt, range
 - IP address operations: any, host, (wildcard format)
-
+- Many Port aliases available (see ports.txt)
+- Flags don´t work yet
 
 I´m just learning C, meaning that at this stage the program probably contains some bad programming, consider yourself warned..
