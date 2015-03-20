@@ -12,7 +12,7 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
     if (rule->action == AC_REMARK){
         newMatch->state = ST_REMARK;
     }
-    else if (vector->protocol != rule->protocol && rule->protocol != PROTO_IP){
+    else if (vector->protocol != rule->protocol && rule->protocol != PROTO_IP){ //find better solution
         newMatch->state = ST_NOMATCH;
     }
 

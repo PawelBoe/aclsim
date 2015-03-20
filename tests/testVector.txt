@@ -1,6 +1,6 @@
-tcp    12.22.111.123 135 222.11.123.123 541 eins  Kommentar_der_nichts_aussagt_und_einfachassssssssssssdasdasdasdasdadfjhdfgjdgdkfjgdkfjl
+tcp    12.22.111.123 135 222.11.123.123 541 eins  Kommentar_der_nichts_aussagt_und
 udp 12.22.11.13    1245 222.111.13.123 52221 zwei   Kommentar_der
-icmp 123.222.111.123   2345 222.111.123.123 54321 drei    
+icmp 123.222.111.123   2345 222.111.123.123 54321 drei
 ip 123.22.11.123 12345   222.111.13.123 54421 vier Kommentar_der_nichts
 tcp 123.22.11.123 1245 22.11.123.123 12331 fünf     Kommentar_der_nichts
 tcp    12.22.111.123 135 222.11.123.123 541 sechs  Kommentar_der_nichts_aussagt_und_einfach
