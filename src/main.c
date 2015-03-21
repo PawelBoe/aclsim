@@ -72,6 +72,7 @@ main(int argc, char **argv){
     }
 
     process_acl(acl, nomatchFlag, allFlag);
+    fclose(acl);
 
     return EXIT_SUCCESS;
 }
@@ -107,7 +108,6 @@ process_acl(FILE *acl, int nomatchFlag, int allFlag){
         }
         rewind(acl);
     }
-    fclose(acl);
 }
 
 void
