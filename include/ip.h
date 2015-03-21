@@ -1,3 +1,4 @@
+//Copyright (C) Pawel Böning, 2015
 #ifndef IP_H
 #define IP_H
 

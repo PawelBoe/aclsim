@@ -1,3 +1,4 @@
+//Copyright (C) Pawel Böning, 2015
 #ifndef VECTOR_H
 #define VECTOR_H
 

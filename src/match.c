@@ -1,3 +1,4 @@
+//Copyright (C) Pawel Böning, 2015
 #include <stdio.h>
 #include "match.h"
 #include "rule.h"
@@ -90,7 +91,7 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
 }
 
 error_t
-print_match(struct match *match){
+print_match(struct match *match, int nomatchFlag){
     error_t status = SUCCESS;
     switch(match->state){
         case(ST_DENY):
@@ -103,7 +104,8 @@ print_match(struct match *match){
             //ignore comment
             break;
         case(ST_NOMATCH):
-            printf("nomatch: vector %d rule %d\n", match->vectorNr, match->ruleNr);
+            if(nomatchFlag) //check -n option
+                printf("nomatch: vector %d rule %d\n", match->vectorNr, match->ruleNr);
             break;
         default:
             //shouldn´t reach this point

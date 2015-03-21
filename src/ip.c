@@ -1,3 +1,4 @@
+//Copyright (C) Pawel Böning, 2015
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>

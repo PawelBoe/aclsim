@@ -1,5 +1,13 @@
+//Copyright (C) Pawel Böning, 2015
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
+
+//Options
+#define OP_STANDARD 0
+#define OP_HELP 1
+#define OP_ALL 2
+#define OP_NOMATCH 3
+#define OP_UNKNOWN -1
 
 //Buffers
 #define BUFSIZE 128
@@ -8,12 +16,10 @@
 #define IPSIZE 16
 
 //Errorcodes
-enum errors{
+typedef enum errors{
     SUCCESS = 0,
     ERR_GENERIC = 1,
-};
-
-typedef enum errors error_t;
+} error_t;
 
 //Actions
 #define AC_DENY 0

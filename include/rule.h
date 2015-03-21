@@ -1,3 +1,4 @@
+//Copyright (C) Pawel Böning, 2015
 #ifndef RULE_H
 #define RULE_H
 

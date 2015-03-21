@@ -1,3 +1,4 @@
+//Copyright (C) Pawel Böning, 2015
 #ifndef MATCH_H
 #define MATCH_H
 
@@ -16,6 +17,6 @@ extern error_t
 check_match(struct match *newMatch, struct vector *vector, struct rule *rule);
 
 extern error_t
-print_match(struct match *match);
+print_match(struct match *match, int nomatchFlag);
 
 #endif

@@ -1,3 +1,4 @@
+//Copyright (C) Pawel Böning, 2015
 #include <string.h>
 #include "vector.h"
 #include "ip.h"
