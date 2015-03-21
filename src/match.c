@@ -4,79 +4,89 @@
 #include "vector.h"
 
 
+static error_t
+compare_protocol_match(int vectorProto, int ruleProto){
+    error_t status = ERR_GENERIC;
+
+    if (vectorProto == ruleProto) {
+        status = SUCCESS;
+    }
+    else if(ruleProto == PROTO_IP){
+        status = SUCCESS;
+    }
+
+    return status;
+}
+
+static error_t
+compare_address_match(union ipAdr vectorAdr, union ipAdr ruleAdrStart,
+        union ipAdr ruleAdrEnd){
+    error_t status = SUCCESS;
+    int i;
+
+    for(i = 0; i < 4; i++){
+        if(!(vectorAdr.byte[i] >= ruleAdrStart.byte[i]) ||
+           !(vectorAdr.byte[i] <= ruleAdrEnd.byte[i])){
+        status |= ERR_GENERIC;
+        }
+    }
+
+    return status;
+}
+
+static error_t
+compare_port_match(union ipPrt vectorPrt, union ipPrt rulePrtStart,
+        union ipPrt rulePrtEnd, int rulePrtNeg){
+    error_t status = SUCCESS;
+
+    if(rulePrtNeg &&
+            (vectorPrt.value >= rulePrtStart.value) &&
+            (vectorPrt.value <= rulePrtEnd.value)){
+                status |= ERR_GENERIC;
+    }
+    else if(!rulePrtNeg &&
+            (!(vectorPrt.value >= rulePrtStart.value) ||
+            !(vectorPrt.value <= rulePrtEnd.value))){
+                status |= ERR_GENERIC;
+    }
+
+    return status;
+}
+
 error_t
 check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
+    error_t status = SUCCESS;
     newMatch->vectorNr = vector->number;
     newMatch->ruleNr = rule->number;
 
     if (rule->action == AC_REMARK){
         newMatch->state = ST_REMARK;
     }
-    else if (vector->protocol != rule->protocol && rule->protocol != PROTO_IP){ //find better solution
+    else if (compare_protocol_match(vector->protocol, rule->protocol)
+            != SUCCESS){
         newMatch->state = ST_NOMATCH;
     }
-
-    else if(!(vector->srcIp.byte[0] >= rule->srcIpStart.byte[0]) ||
-            !(vector->srcIp.byte[0] <= rule->srcIpEnd.byte[0])){
-                newMatch->state = ST_NOMATCH;
+    else if(compare_address_match(vector->srcAdr, rule->srcAdrStart,
+                rule->srcAdrEnd) != SUCCESS){
+        newMatch->state = ST_NOMATCH;
     }
-    else if(!(vector->srcIp.byte[1] >= rule->srcIpStart.byte[1]) ||
-            !(vector->srcIp.byte[1] <= rule->srcIpEnd.byte[1])){
-                newMatch->state = ST_NOMATCH;
+    else if(compare_address_match(vector->dstAdr, rule->dstAdrStart,
+                rule->dstAdrEnd) != SUCCESS){
+        newMatch->state = ST_NOMATCH;
     }
-    else if(!(vector->srcIp.byte[2] >= rule->srcIpStart.byte[2]) ||
-            !(vector->srcIp.byte[2] <= rule->srcIpEnd.byte[2])){
-                newMatch->state = ST_NOMATCH;
+    else if(compare_port_match(vector->srcPrt, rule->srcPrtStart,
+                rule->srcPrtEnd, rule->srcPrtNeg) != SUCCESS){
+        newMatch->state = ST_NOMATCH;
     }
-    else if(!(vector->srcIp.byte[3] >= rule->srcIpStart.byte[3]) ||
-            !(vector->srcIp.byte[3] <= rule->srcIpEnd.byte[3])){
-                newMatch->state = ST_NOMATCH;
+    else if(compare_port_match(vector->dstPrt, rule->dstPrtStart,
+                rule->dstPrtEnd, rule->dstPrtNeg) != SUCCESS){
+        newMatch->state = ST_NOMATCH;
     }
-
-    else if(!(vector->dstIp.byte[0] >= rule->dstIpStart.byte[0]) ||
-            !(vector->dstIp.byte[0] <= rule->dstIpEnd.byte[0])){
-                newMatch->state = ST_NOMATCH;
-    }
-    else if(!(vector->dstIp.byte[1] >= rule->dstIpStart.byte[1]) ||
-            !(vector->dstIp.byte[1] <= rule->dstIpEnd.byte[1])){
-                newMatch->state = ST_NOMATCH;
-    }
-    else if(!(vector->dstIp.byte[2] >= rule->dstIpStart.byte[2]) ||
-            !(vector->dstIp.byte[2] <= rule->dstIpEnd.byte[2])){
-                newMatch->state = ST_NOMATCH;
-    }
-    else if(!(vector->dstIp.byte[3] >= rule->dstIpStart.byte[3]) ||
-            !(vector->dstIp.byte[3] <= rule->dstIpEnd.byte[3])){
-                newMatch->state = ST_NOMATCH;
-    }
-
-    else if(rule->srcPrtNeg &&
-            (vector->srcPrt.value >= rule->srcPrtStart.value) &&
-            (vector->srcPrt.value <= rule->srcPrtEnd.value)){
-                newMatch->state = ST_NOMATCH;
-    }
-    else if(!rule->srcPrtNeg &&
-            (!(vector->srcPrt.value >= rule->srcPrtStart.value) ||
-            !(vector->srcPrt.value <= rule->srcPrtEnd.value))){
-                newMatch->state = ST_NOMATCH;
-    }
-
-    else if(rule->dstPrtNeg &&
-            (vector->dstPrt.value >= rule->dstPrtStart.value) &&
-            (vector->dstPrt.value <= rule->dstPrtEnd.value)){
-                newMatch->state = ST_NOMATCH;
-    }
-    else if(!rule->dstPrtNeg &&
-            (!(vector->dstPrt.value >= rule->dstPrtStart.value) ||
-            !(vector->dstPrt.value <= rule->dstPrtEnd.value))){
-                newMatch->state = ST_NOMATCH;
-    }
-
     else{
         newMatch->state = rule->action;
     }
 
-    return SUCCESS;
+    return status;
 }
 
 error_t

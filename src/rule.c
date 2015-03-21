@@ -94,27 +94,42 @@ parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
     return status;
 }
 
+static error_t
+parse_fragment_rule(char *token[], int *tokensExtracted){
+    error_t status = ERR_GENERIC;
+
+    if (strncmp(token[*tokensExtracted], " ", 1) == 0){
+        status = SUCCESS;
+    }
+    //allowed fragments (not evaluated though..)
+    else if (strncmp(token[*tokensExtracted], "log", 3) == 0){
+       status = SUCCESS;
+    }
+
+    return status;
+}
+
 error_t
 parse_rule(struct rule *newRule, char *rawRule, int *lineNr){
     error_t status = SUCCESS;
     int i;
-    char *token[12];
+    char *token[13];
     char buff[RULESIZE];
     strncpy(buff, rawRule, RULESIZE);
     buff[RULESIZE-1] = '\0';
 
     int tokensExtracted = 0;
 
-    for(i = 0; i < 12; i++){ //initialize tokens (no NULL-Ptr!)
-        token[i] = "";
+    for(i = 0; i < 13; i++){ //initialize tokens (no NULL-Ptr!)
+        token[i] = " ";
     }
 
     token[0] = strtok(buff, " ");
-    for (i = 1; i < 12 && token[i-1] != NULL; i++){
+    for (i = 1; i < 13 && token[i-1] != NULL; i++){
         token[i] = strtok(NULL, " ");
     }
     if (token[i-1] == NULL){
-        token[i-1] = ""; //no NULL-Ptr!
+        token[i-1] = " "; //no NULL-Ptr!
     }
 
     newRule->number = *lineNr;
@@ -128,17 +143,36 @@ parse_rule(struct rule *newRule, char *rawRule, int *lineNr){
         status |= parse_protocol_ip(&newRule->protocol, token[1]);
         tokensExtracted++;
 
-        status |= parse_address_rule(token, &newRule->srcIpStart,
-            &newRule->srcIpEnd, &tokensExtracted);
+        status |= parse_address_rule(token, &newRule->srcAdrStart,
+            &newRule->srcAdrEnd, &tokensExtracted);
 
-        status |= parse_port_rule(token, &newRule->srcPrtStart,
-            &newRule->srcPrtEnd, &newRule->srcPrtNeg, &tokensExtracted);
+        //only tcp and udp rules have port specifications
+        if (newRule->protocol == PROTO_TCP || newRule->protocol == PROTO_UDP){
+            status |= parse_port_rule(token, &newRule->srcPrtStart,
+                &newRule->srcPrtEnd, &newRule->srcPrtNeg, &tokensExtracted);
+        }
+        else{ //fill ports with standard values
+            newRule->srcPrtStart.value = 0x0000;
+            newRule->srcPrtEnd.value = 0xFFFF;
+            newRule->srcPrtNeg = 0;
+        }
 
-        status |= parse_address_rule(token, &newRule->dstIpStart,
-            &newRule->dstIpEnd, &tokensExtracted);
+        status |= parse_address_rule(token, &newRule->dstAdrStart,
+            &newRule->dstAdrEnd, &tokensExtracted);
 
-        status |= parse_port_rule(token, &newRule->dstPrtStart,
-            &newRule->dstPrtEnd, &newRule->dstPrtNeg, &tokensExtracted);
+        //only tcp and udp rules have port specifications
+        if (newRule->protocol == PROTO_TCP || newRule->protocol == PROTO_UDP){
+            status |= parse_port_rule(token, &newRule->dstPrtStart,
+                &newRule->dstPrtEnd, &newRule->dstPrtNeg, &tokensExtracted);
+        }
+        else{ //fill ports with standard values
+            newRule->dstPrtStart.value = 0x0000;
+            newRule->dstPrtEnd.value = 0xFFFF;
+            newRule->dstPrtNeg = 0;
+        }
+
+        //detect unnecessary string fragments at end of rule
+        status |= parse_fragment_rule(token, &tokensExtracted);
     }
 
     return status;

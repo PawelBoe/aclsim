@@ -35,7 +35,7 @@ main(int argc, char **argv){
         }
         vectorbuf[strlen(vectorbuf)-1] = '\0';
         if(parse_vector(&vector, vectorbuf, &vectorNr) != SUCCESS){
-            fprintf(stderr, "Error occured in vector %d\n", vectorNr);
+            fprintf(stderr, "Error occured in vector %d\n", vector.number);
             continue;
         }
         for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ){
@@ -44,7 +44,7 @@ main(int argc, char **argv){
             }
             rulebuf[strlen(rulebuf)-1] = '\0';
             if(parse_rule(&rule, rulebuf, &ruleNr) != SUCCESS){
-                fprintf(stderr, "Error occured in rule %d\n", ruleNr);
+                fprintf(stderr, "Error occured in rule %d\n", rule.number);
                 continue;
             }
             check_match(&match, &vector, &rule);

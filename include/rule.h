@@ -10,11 +10,11 @@ struct rule{
     int action;     //rule action (0-deny 1-permit, 2-remark)
     int protocol;   //value of used communication protocol
 
-    union ipAdr srcIpStart;    //source port range
-    union ipAdr srcIpEnd;
+    union ipAdr srcAdrStart;    //source port range
+    union ipAdr srcAdrEnd;
 
-    union ipAdr dstIpStart;    //destination port range
-    union ipAdr dstIpEnd;
+    union ipAdr dstAdrStart;    //destination port range
+    union ipAdr dstAdrEnd;
 
     union ipPrt srcPrtStart;  //source port range
     union ipPrt srcPrtEnd;

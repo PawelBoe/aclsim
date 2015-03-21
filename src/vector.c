@@ -27,9 +27,9 @@ parse_vector(struct vector *newVector, char *rawVector, int *lineNr){
     newVector->number = *lineNr;
     (*lineNr)++;
     status |= parse_protocol_ip(&newVector->protocol, token[0]);
-    status |= parse_address_ip(&newVector->srcIp, token[1]);
+    status |= parse_address_ip(&newVector->srcAdr, token[1]);
     status |= parse_port_ip(&newVector->srcPrt, token[2]);
-    status |= parse_address_ip(&newVector->dstIp, token[3]);
+    status |= parse_address_ip(&newVector->dstAdr, token[3]);
     status |= parse_port_ip(&newVector->dstPrt, token[4]);
     strncpy(newVector->flags, token[5], strlen(token[5])+1);
 

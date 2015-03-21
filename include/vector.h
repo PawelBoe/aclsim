@@ -8,9 +8,9 @@
 struct vector{
     int number;
     int protocol;
-    union ipAdr srcIp;
+    union ipAdr srcAdr;
     union ipPrt srcPrt;
-    union ipAdr dstIp;
+    union ipAdr dstAdr;
     union ipPrt dstPrt;
     char flags[VECTORSIZE];
 };
