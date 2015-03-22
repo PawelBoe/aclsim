@@ -57,8 +57,9 @@ compare_port_match(union ipPrt vectorPrt, union ipPrt rulePrtStart,
 error_t
 check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
     error_t status = SUCCESS;
-    newMatch->vectorNr = vector->number;
-    newMatch->ruleNr = rule->number;
+
+    newMatch->vectorPtr = vector;
+    newMatch->rulePtr = rule;
 
     if (rule->action == AC_REMARK){
         newMatch->state = ST_REMARK;
@@ -91,25 +92,34 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
 }
 
 error_t
-print_match(struct match *match, int nomatchFlag){
+print_match(struct match *match, option_t option){
     error_t status = SUCCESS;
+
     switch(match->state){
         case(ST_DENY):
-            printf("match: vector %d rule %d deny\n", match->vectorNr, match->ruleNr);
+            if(option == OP_STANDARD || option == OP_ALL || option == OP_VERBOSE)
+                printf("match: vector %d rule %d deny\n",
+                        match->vectorPtr->number, match->rulePtr->number);
             break;
         case(ST_PERMIT):
-            printf("match: vector %d rule %d permit\n", match->vectorNr, match->ruleNr);
+            if(option == OP_STANDARD || option == OP_ALL || option == OP_VERBOSE)
+                printf("match: vector %d rule %d permit\n",
+                        match->vectorPtr->number, match->rulePtr->number);
+            else if(option == OP_FILTER)
+                printf("%s\n", "rawVector"); //to do
             break;
         case(ST_REMARK):
             //ignore comment
             break;
         case(ST_NOMATCH):
-            if(nomatchFlag) //check -n option
-                printf("nomatch: vector %d rule %d\n", match->vectorNr, match->ruleNr);
+            if(option == OP_NOMATCH || option == OP_VERBOSE)
+                printf("nomatch: vector %d rule %d\n",
+                        match->vectorPtr->number, match->rulePtr->number);
             break;
         default:
             //shouldn´t reach this point
-            fprintf(stderr, "error: vector %d rule %d\n", match->vectorNr, match->ruleNr);
+            fprintf(stderr, "error: vector %d rule %d\n",
+                    match->vectorPtr->number, match->rulePtr->number);
             status = ERR_GENERIC;
             break;
     }

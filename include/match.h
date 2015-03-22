@@ -8,8 +8,8 @@
 
 
 struct match{
-    int ruleNr;
-    int vectorNr;
+    struct rule *rulePtr;
+    struct vector *vectorPtr;
     int state;
 };
 
@@ -17,6 +17,6 @@ extern error_t
 check_match(struct match *newMatch, struct vector *vector, struct rule *rule);
 
 extern error_t
-print_match(struct match *match, int nomatchFlag);
+print_match(struct match *match, option_t option);
 
 #endif

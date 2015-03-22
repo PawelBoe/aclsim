@@ -3,11 +3,15 @@
 #define CONSTANTS_H
 
 //Options
-#define OP_STANDARD 0
-#define OP_HELP 1
-#define OP_ALL 2
-#define OP_NOMATCH 3
-#define OP_UNKNOWN -1
+typedef enum options{
+    OP_STANDARD = 0,
+    OP_HELP = 1,
+    OP_ALL = 2,
+    OP_NOMATCH = 3,
+    OP_VERBOSE = 4,
+    OP_FILTER = 5,
+    OP_UNKNOWN = -1,
+}option_t;
 
 //Buffers
 #define BUFSIZE 128
@@ -21,7 +25,7 @@ typedef enum errors{
     ERR_GENERIC = 1,
 } error_t;
 
-//Actions
+//Rule actions
 #define AC_DENY 0
 #define AC_PERMIT 1
 #define AC_REMARK 2
@@ -31,7 +35,8 @@ typedef enum errors{
 #define ST_DENY 0
 #define ST_PERMIT 1
 #define ST_REMARK 2
-#define ST_NOMATCH -1
+#define ST_NOMATCH 3
+#define ST_ERROR -1
 
 //Protocols
 #define PROTO_IP 0
