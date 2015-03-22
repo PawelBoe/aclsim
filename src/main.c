@@ -38,6 +38,7 @@ main(int argc, char **argv){
         switch (option) {
             case 'h': //help
                 print_help(argv[0]);
+                exit(EXIT_SUCCESS);
                 break;
             case 's': //standard
                 nomatchFlag = 0;
@@ -121,7 +122,17 @@ print_usage(char *progName){
 
 void print_help(char *progName){
    print_usage(progName);
-
+   printf("Simulate CISCO ACL functionality by applying rules to a "
+           "fixed test\nvector file. Vectors are read from standard "
+           "input and can therefore\nbe piped into the program: "
+           "aclsim [option] [aclFile] < (vectorFile)\n\n"
+           "Possible options are:\n"
+           "-h \t\tshow help\n"
+           "-s (standard)\tshow standard output, only first matches are shown\n"
+           "-a \t\tshow all matches, not only the first ones\n"
+           "-n \t\tshow not matching rules and corresponding vector\n"
+           "-v \t\tshow verbose output (both -a and -n)\n"
+           "\n");
 }
 
 void
