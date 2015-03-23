@@ -108,7 +108,7 @@ process_acl(FILE *acl, option_t option){
             rulebuf[strlen(rulebuf)-1] = '\0';
 
             if(parse_rule(&rule, rulebuf, &ruleNr) != SUCCESS){
-                fprintf(stderr, COLOR_RED 
+                fprintf(stderr, COLOR_RED
                         ">>Error occured in rule %d\n"
                         ">>Terminating program ..\n",
                         rule.number);

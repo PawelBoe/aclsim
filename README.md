@@ -6,7 +6,7 @@ Installation:
 - run "make" to generate the bin/ and obj/ folder.
 - go to bin/ and use ./aclsim according to your needs..
 
-The usage of this program is as follows: ./aclsim ruleFile < vectorFile
+The usage of this program is as follows: ./aclsim (option) (ruleFile) < (vectorFile)
 
 Rule syntax: action protocol sourceIp (operation port(s)) destinationIp (operation port(s))
 
@@ -18,5 +18,14 @@ Vector syntax: protocol sourceIp sourcePort destinationIp destinationPort (flags
 - IP address operations: any, host, (wildcard format)
 - Many Port aliases available (see ports.txt)
 - Flags don´t work yet
+
+some options are available too:
+
+-h show help
+-s show first match ONLY
+-a show all matches, not only the first ones
+-n show not matching rules and corresponding vectors ONLY
+-v show verbose output (like using both -a and -n)
+-f filter and print permitted vectors to stdout
 
 I´m just learning C, meaning that at this stage the program probably contains some bad programming, consider yourself warned..
