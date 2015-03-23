@@ -81,7 +81,7 @@ main(int argc, char **argv){
 
 void
 process_acl(FILE *acl, option_t option){
-    int vectorNr, ruleNr;
+    int vectorNr, ruleNr, matchCount;
     char vectorbuf[VECTORSIZE], rulebuf[RULESIZE];
     struct match match;
     struct rule rule;
@@ -94,27 +94,29 @@ process_acl(FILE *acl, option_t option){
         vectorbuf[strlen(vectorbuf)-1] = '\0';
 
         if(parse_vector(&vector, vectorbuf, &vectorNr) != SUCCESS){
-            fprintf(stderr, ">> Error occured in vector %d\n"
-                            ">> Terminating program ..\n\n",
-                            vector.number);
+            fprintf(stderr, COLOR_RED
+                    ">> Error occured in vector %d\n"
+                    ">> Terminating program ..\n",
+                    vector.number);
             return;
         }
 
-        for(ruleNr = 0; fgets(rulebuf, RULESIZE-1, acl); ){
+        for(ruleNr = 0, matchCount = 0; fgets(rulebuf, RULESIZE-1, acl); ){
             if(rulebuf[strlen(rulebuf)-1] != '\n'){
                 skip_line(acl);
             }
             rulebuf[strlen(rulebuf)-1] = '\0';
 
             if(parse_rule(&rule, rulebuf, &ruleNr) != SUCCESS){
-                fprintf(stderr, ">>Error occured in rule %d\n"
-                                ">>Terminating program ..\n\n",
-                                rule.number);
+                fprintf(stderr, COLOR_RED 
+                        ">>Error occured in rule %d\n"
+                        ">>Terminating program ..\n",
+                        rule.number);
                 return;
             }
 
             check_match(&match, &vector, &rule);
-            print_match(&match, option);
+            print_match(&match, option, &matchCount, vectorbuf); //could be better
         }
 
         rewind(acl);
@@ -139,12 +141,12 @@ void print_help(char *progName){
            "%s [option] [aclFile] < (vectorFile)\n\n"
            "Possible options are:\n"
            "-h \t\tshow help\n"
-           "-s (standard)\tshow standard output, only first matches are shown\n"
+           "-s (standard)\tshow first match ONLY\n"
            "-a \t\tshow all matches, not only the first ones\n"
-           "-n \t\tshow not matching rules and corresponding vector ONLY\n"
-           "-v \t\tshow verbose output (both -a and -n)\n"
-           "-f \t\tfilter vectors and print permitted ones to stdout\n"
-           "\n", progName);
+           "-n \t\tshow not matching rules and corresponding vectors ONLY\n"
+           "-v \t\tshow verbose output (like using both -a and -n)\n"
+           "-f \t\tfilter and print permitted vectors to stdout\n"
+           , progName);
 }
 
 void

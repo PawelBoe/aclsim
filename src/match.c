@@ -92,33 +92,46 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
 }
 
 error_t
-print_match(struct match *match, option_t option){
+print_match(struct match *match, option_t option, int *matchCount,
+        char * rawVector){
     error_t status = SUCCESS;
 
     switch(match->state){
         case(ST_DENY):
-            if(option == OP_STANDARD || option == OP_ALL || option == OP_VERBOSE)
-                printf("match: vector %d rule %d deny\n",
-                        match->vectorPtr->number, match->rulePtr->number);
+            if(option == OP_STANDARD && *matchCount == 0)
+                printf("match(%d): vector<%d> rule<%d> deny\n",
+                        *matchCount, match->vectorPtr->number,
+                        match->rulePtr->number);
+            else if(option == OP_ALL || option == OP_VERBOSE)
+                printf("match(%d): vector<%d> rule<%d> deny\n",
+                        *matchCount, match->vectorPtr->number,
+                        match->rulePtr->number);
+            (*matchCount)++;
             break;
         case(ST_PERMIT):
-            if(option == OP_STANDARD || option == OP_ALL || option == OP_VERBOSE)
-                printf("match: vector %d rule %d permit\n",
-                        match->vectorPtr->number, match->rulePtr->number);
-            else if(option == OP_FILTER)
-                printf("%s\n", "rawVector"); //to do
+            if(option == OP_STANDARD && *matchCount == 0)
+                printf("match(%d): vector<%d> rule<%d> permit\n",
+                        *matchCount, match->vectorPtr->number,
+                        match->rulePtr->number);
+            else if(option == OP_ALL || option == OP_VERBOSE)
+                printf("match(%d): vector<%d> rule<%d> permit\n",
+                        *matchCount, match->vectorPtr->number,
+                        match->rulePtr->number);
+            else if(option == OP_FILTER && *matchCount == 0)
+                printf("%s\n", rawVector);
+            (*matchCount)++;
             break;
         case(ST_REMARK):
             //ignore comment
             break;
         case(ST_NOMATCH):
             if(option == OP_NOMATCH || option == OP_VERBOSE)
-                printf("nomatch: vector %d rule %d\n",
+                printf("nomatch: vector<%d> rule<%d>\n",
                         match->vectorPtr->number, match->rulePtr->number);
             break;
         default:
             //shouldn´t reach this point
-            fprintf(stderr, "error: vector %d rule %d\n",
+            fprintf(stderr, "error: vector<%d> rule<%d>\n",
                     match->vectorPtr->number, match->rulePtr->number);
             status = ERR_GENERIC;
             break;
