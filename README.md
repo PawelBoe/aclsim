@@ -21,11 +21,11 @@ Vector syntax: protocol sourceIp sourcePort destinationIp destinationPort (flags
 
 some options are available too:
 
--h show help
--s show first match ONLY
--a show all matches, not only the first ones
--n show not matching rules and corresponding vectors ONLY
--v show verbose output (like using both -a and -n)
--f filter and print permitted vectors to stdout
+- h show help
+- s show first match ONLY
+- a show all matches, not only the first ones
+- n show not matching rules and corresponding vectors ONLY
+- v show verbose output (like using both -a and -n)
+- f filter and print permitted vectors to stdout
 
 I´m just learning C, meaning that at this stage the program probably contains some bad programming, consider yourself warned..
