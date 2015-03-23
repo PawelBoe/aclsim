@@ -22,7 +22,6 @@ skip_line(FILE *stream);
 
 int
 main(int argc, char **argv){
-
     FILE *acl;
     int opt = 0;
     char *aclName = argv[1];
@@ -87,7 +86,8 @@ process_acl(FILE *acl, option_t option){
     struct rule rule;
     struct vector vector;
 
-    for(vectorNr = 0; fgets(vectorbuf, VECTORSIZE-1, stdin); ){
+    vectorNr = 0;
+    while(fgets(vectorbuf, VECTORSIZE-1, stdin)){
         if(vectorbuf[strlen(vectorbuf)-1] != '\n'){
             skip_line(stdin);
         }
@@ -101,7 +101,9 @@ process_acl(FILE *acl, option_t option){
             return;
         }
 
-        for(ruleNr = 0, matchCount = 0; fgets(rulebuf, RULESIZE-1, acl); ){
+        ruleNr = 0;
+        matchCount = 0;
+        while(fgets(rulebuf, RULESIZE-1, acl)){
             if(rulebuf[strlen(rulebuf)-1] != '\n'){
                 skip_line(acl);
             }
