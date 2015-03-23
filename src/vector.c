@@ -36,3 +36,10 @@ parse_vector(struct vector *newVector, char *rawVector, int *lineNr){
 
     return status;
 }
+
+void
+string_vector(char *newString, struct vector *oldVector){
+    //to do
+    strncpy(newString, "ip 1.1.1.1 1 1.1.1.1 1", VECTORSIZE);
+
+}

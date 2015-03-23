@@ -116,7 +116,7 @@ process_acl(FILE *acl, option_t option){
             }
 
             check_match(&match, &vector, &rule);
-            print_match(&match, option, &matchCount, vectorbuf); //could be better
+            print_match(&match, option, &matchCount);
         }
 
         rewind(acl);

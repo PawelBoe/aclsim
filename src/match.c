@@ -92,9 +92,9 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
 }
 
 error_t
-print_match(struct match *match, option_t option, int *matchCount,
-        char * rawVector){
+print_match(struct match *match, option_t option, int *matchCount){
     error_t status = SUCCESS;
+    char strVector[VECTORSIZE];
 
     switch(match->state){
         case(ST_DENY):
@@ -118,7 +118,8 @@ print_match(struct match *match, option_t option, int *matchCount,
                         *matchCount, match->vectorPtr->number,
                         match->rulePtr->number);
             else if(option == OP_FILTER && *matchCount == 0)
-                printf("%s\n", rawVector); //to do: parse to string from struct vector
+                string_vector(strVector, match->vectorPtr); //to do
+                printf("%s\n", strVector);
             (*matchCount)++;
             break;
         case(ST_REMARK):
