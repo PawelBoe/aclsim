@@ -1,0 +1,1 @@
+./aclsim -f ../tests/testRule1.txt < ../tests/testVector.txt | ./aclsim -f ../tests/testRule2.txt
