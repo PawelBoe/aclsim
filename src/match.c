@@ -118,7 +118,7 @@ print_match(struct match *match, option_t option, int *matchCount,
                         *matchCount, match->vectorPtr->number,
                         match->rulePtr->number);
             else if(option == OP_FILTER && *matchCount == 0)
-                printf("%s\n", rawVector);
+                printf("%s\n", rawVector); //to do: parse to string from struct vector
             (*matchCount)++;
             break;
         case(ST_REMARK):

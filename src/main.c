@@ -56,7 +56,7 @@ main(int argc, char **argv){
                 option = OP_VERBOSE;
                 aclName = optarg;
                 break;
-            case 'f': //show verbose (nomatch + all)
+            case 'f': //filter vectors
                 option = OP_FILTER;
                 aclName = optarg;
                 break;
