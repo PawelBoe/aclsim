@@ -122,7 +122,7 @@ print_match(struct match *match, option_t option, int *matchCount){
             }
             else if(option == OP_FILTER && *matchCount == 0){
                 char strVector[VECTORSIZE];
-                string_vector(strVector, match->vectorPtr); //to do
+                string_vector(strVector, match->vectorPtr);
                 printf("%s\n", strVector);
             }
             (*matchCount)++;

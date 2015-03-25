@@ -37,9 +37,29 @@ parse_vector(struct vector *newVector, char *rawVector, int *lineNr){
     return status;
 }
 
-void
+error_t
 string_vector(char *newString, struct vector *oldVector){
-    //to do
-    strncpy(newString, "ip 1.1.1.1 1 1.1.1.1 1", VECTORSIZE);
+    error_t status = SUCCESS;
+    char tmp[VECTORSIZE] = "";
 
+    status |= string_protocol(tmp, oldVector->protocol);
+    strncat(newString, tmp, strlen(tmp)+1);
+    strncat(newString, " ", 2);
+
+    status |= string_address(tmp, oldVector->srcAdr);
+    strncat(newString, tmp, strlen(tmp)+1);
+    strncat(newString, " ", 2);
+
+    status |= string_port(tmp, oldVector->srcPrt);
+    strncat(newString, tmp, strlen(tmp)+1);
+    strncat(newString, " ", 2);
+
+    status |= string_address(tmp, oldVector->dstAdr);
+    strncat(newString, tmp, strlen(tmp)+1);
+    strncat(newString, " ", 2);
+
+    status |= string_port(tmp, oldVector->dstPrt);
+    strncat(newString, tmp, strlen(tmp)+1);
+
+    return status;
 }

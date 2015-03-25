@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <stdio.h>
 #include "ip.h"
 
 
@@ -144,7 +145,10 @@ parse_port_ip(union ipPrt *newPort, const char *rawPort){
 error_t
 parse_protocol_ip(int *newProtocol, const char *rawProtocol){
     error_t status = SUCCESS;
-    if (strncmp(rawProtocol, "tcp", 3) == 0){
+    if(strncmp(rawProtocol, "ip", 2) == 0){
+        *newProtocol = PROTO_IP;
+    }
+    else if (strncmp(rawProtocol, "tcp", 3) == 0){
        *newProtocol = PROTO_TCP;
     }
     else if(strncmp(rawProtocol, "udp", 3) == 0){
@@ -155,9 +159,6 @@ parse_protocol_ip(int *newProtocol, const char *rawProtocol){
     }
     else if(strncmp(rawProtocol, "icmp", 4) == 0){
         *newProtocol = PROTO_ICMP;
-    }
-    else if(strncmp(rawProtocol, "ip", 2) == 0){
-        *newProtocol = PROTO_IP;
     }
     else{
         *newProtocol = PROTO_UNKNOWN;
@@ -182,3 +183,51 @@ transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard){
     }
     *wildcard = tmp;
 }
+
+error_t
+string_protocol(char *newString, int oldProtocol){
+    error_t status = SUCCESS;
+
+    switch (oldProtocol) {
+        case PROTO_IP:
+            strncpy(newString, "ip", 2);
+            break;
+        case PROTO_TCP:
+            strncpy(newString, "tcp", 3);
+            break;
+        case PROTO_UDP:
+            strncpy(newString, "udp", 3);
+            break;
+        case PROTO_ESP:
+            strncpy(newString, "esp", 3);
+            break;
+        case PROTO_ICMP:
+            strncpy(newString, "icmp", 4);
+            break;
+        case PROTO_UNKNOWN: //shouldn´t reach this point
+        default:
+            status = ERR_GENERIC;
+            break;
+    }
+
+    return status;
+}
+
+error_t
+string_address(char *newString, union ipAdr oldAddress){
+    error_t status = SUCCESS;
+    snprintf(newString, VECTORSIZE, "%d.%d.%d.%d",
+            oldAddress.byte[0], oldAddress.byte[1],
+            oldAddress.byte[2], oldAddress.byte[3]);
+
+    return status;
+}
+
+error_t
+string_port(char *newString, union ipPrt oldPort){
+    error_t status = SUCCESS;
+    snprintf(newString, VECTORSIZE, "%d", oldPort.value);
+
+    return status;
+}
+
