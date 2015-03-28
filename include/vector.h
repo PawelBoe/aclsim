@@ -19,6 +19,6 @@ struct vector{
 extern error_t
 parse_vector(struct vector *newVector, char *rawVector, int *lineNr);
 
-extern error_t 
+extern error_t
 string_vector(char *newString, struct vector *oldVector);
 #endif

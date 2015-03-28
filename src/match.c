@@ -133,13 +133,15 @@ print_match(struct match *match, option_t option, int *matchCount){
         case(ST_NOMATCH):
             if(option == OP_NOMATCH || option == OP_VERBOSE){
                 printf("nomatch: vector<%d> rule<%d>\n",
-                        match->vectorPtr->number, match->rulePtr->number);
+                        match->vectorPtr->number,
+                        match->rulePtr->number);
             }
             break;
         default:
             //shouldn´t reach this point
             fprintf(stderr, "error: vector<%d> rule<%d>\n",
-                    match->vectorPtr->number, match->rulePtr->number);
+                    match->vectorPtr->number,
+                    match->rulePtr->number);
             status = ERR_GENERIC;
             break;
     }
