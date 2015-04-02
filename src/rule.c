@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "rule.h"
-#include "ip.h"
 
 
 static error_t

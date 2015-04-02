@@ -1,8 +1,6 @@
 //Copyright (C) Pawel Böning, 2015
 #include <stdio.h>
 #include "match.h"
-#include "rule.h"
-#include "vector.h"
 
 
 static error_t
