@@ -27,7 +27,7 @@ parse_action_rule(int * newAction, char *rawAction){
 
 static error_t
 parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
-        int *tokensExtracted){
+                   int *tokensExtracted){
     error_t status = SUCCESS;
 
     if(strncmp(token[*tokensExtracted], "any", 3) == 0){
@@ -52,7 +52,7 @@ parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
 
 static error_t
 parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
-        int *prtNeg, int *tokensExtracted){
+                int *prtNeg, int *tokensExtracted){
     error_t status = SUCCESS;
 
     if(strncmp(token[*tokensExtracted], "eq", 2) == 0){

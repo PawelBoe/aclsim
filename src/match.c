@@ -19,7 +19,7 @@ compare_protocol_match(int vectorProto, int ruleProto){
 
 static error_t
 compare_address_match(union ipAdr vectorAdr, union ipAdr ruleAdrStart,
-        union ipAdr ruleAdrEnd){
+                      union ipAdr ruleAdrEnd){
     error_t status = SUCCESS;
     int i;
 
@@ -35,7 +35,7 @@ compare_address_match(union ipAdr vectorAdr, union ipAdr ruleAdrStart,
 
 static error_t
 compare_port_match(union ipPrt vectorPrt, union ipPrt rulePrtStart,
-        union ipPrt rulePrtEnd, int rulePrtNeg){
+                   union ipPrt rulePrtEnd, int rulePrtNeg){
     error_t status = SUCCESS;
 
     if(rulePrtNeg &&
