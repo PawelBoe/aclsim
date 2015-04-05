@@ -8,8 +8,8 @@
 
 struct rule{
     int number;     //position of rule in ACL (starting with 0)
-    int action;     //rule action (0-deny 1-permit, 2-remark)
-    int protocol;   //value of used communication protocol
+    action_t action;     //rule action (0-deny 1-permit, 2-remark)
+    proto_t protocol;   //value of used communication protocol
 
     union ipAdr srcAdrStart;    //source port range
     union ipAdr srcAdrEnd;

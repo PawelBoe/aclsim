@@ -12,6 +12,12 @@
 #define COLOR_CYN  "\x1B[36m"
 #define COLOR_WHT  "\x1B[37m"
 
+//Buffers
+#define BUFSIZE 128
+#define VECTORSIZE 128
+#define RULESIZE 128
+#define IPSIZE 16
+
 //Options
 typedef enum options{
     OP_STANDARD = 0,
@@ -23,12 +29,6 @@ typedef enum options{
     OP_UNKNOWN = -1,
 }option_t;
 
-//Buffers
-#define BUFSIZE 128
-#define VECTORSIZE 128
-#define RULESIZE 128
-#define IPSIZE 16
-
 //Errorcodes
 typedef enum errors{
     SUCCESS = 0,
@@ -36,25 +36,31 @@ typedef enum errors{
 } error_t;
 
 //Rule actions
-#define AC_DENY 0
-#define AC_PERMIT 1
-#define AC_REMARK 2
-#define AC_UNKNOWN -1
+typedef enum actions{
+    AC_DENY = 0,
+    AC_PERMIT = 1,
+    AC_REMARK = 2,
+    AC_UNKNOWN = -1,
+} action_t;
 
 //Match states
-#define ST_DENY 0
-#define ST_PERMIT 1
-#define ST_REMARK 2
-#define ST_NOMATCH 3
-#define ST_ERROR -1
+typedef enum matches{
+    ST_DENY = 0,
+    ST_PERMIT = 1,
+    ST_REMARK = 2,
+    ST_NOMATCH = 3,
+    ST_ERROR = -1,
+}match_t;
 
 //Protocols
-#define PROTO_IP 0
-#define PROTO_TCP 1
-#define PROTO_UDP 2
-#define PROTO_ESP 3
-#define PROTO_ICMP 4
-#define PROTO_UNKNOWN -1
+typedef enum protocols{
+    PROTO_IP = 0,
+    PROTO_TCP = 1,
+    PROTO_UDP = 2,
+    PROTO_ESP = 3,
+    PROTO_ICMP = 4,
+    PROTO_UNKNOWN = -1,
+}proto_t;
 
 //Ports
 #define PORT_ECHO 7                /** echo */

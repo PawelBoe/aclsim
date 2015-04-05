@@ -8,7 +8,7 @@
 
 struct vector{
     int number;
-    int protocol;
+    proto_t protocol;
     union ipAdr srcAdr;
     union ipPrt srcPrt;
     union ipAdr dstAdr;
