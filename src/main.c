@@ -140,8 +140,8 @@ print_usage(char *progName)
 
 void print_help(char *progName)
 {
-   print_usage(progName);
-   printf("Simulate CISCO ACL functionality by applying rules to a "
+    print_usage(progName);
+    printf("Simulate CISCO ACL functionality by applying rules to a "
            "fixed test\nvector file. Vectors are read from standard "
            "input and can therefore\nbe piped into the program: "
            "%s [option] [aclFile] < (vectorFile)\n\n"
