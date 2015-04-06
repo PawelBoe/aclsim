@@ -7,7 +7,8 @@
 
 
 static error_t
-copy_uint8_ip(void *value, long castedValue){
+copy_uint8_ip(void *value, long castedValue)
+{
     error_t status = SUCCESS;
 
     if (castedValue > UCHAR_MAX || castedValue < 0){
@@ -20,7 +21,8 @@ copy_uint8_ip(void *value, long castedValue){
 }
 
 static error_t
-copy_uint16_ip(void *value, long castedValue){
+copy_uint16_ip(void *value, long castedValue)
+{
     error_t status = SUCCESS;
 
     if (castedValue > USHRT_MAX || castedValue < 0){
@@ -33,7 +35,8 @@ copy_uint16_ip(void *value, long castedValue){
 }
 
 static error_t
-parse_int_ip(void *value, const char *string, error_t (*copy)(void*, long)){
+parse_int_ip(void *value, const char *string, error_t (*copy)(void*, long))
+{
     error_t status = SUCCESS;
     char *temp;
     long castedValue;
@@ -48,7 +51,8 @@ parse_int_ip(void *value, const char *string, error_t (*copy)(void*, long)){
 }
 
 error_t
-parse_address_ip(union ipAdr *newAddress, const char *rawIp){
+parse_address_ip(union ipAdr *newAddress, const char *rawIp)
+{
     error_t status = SUCCESS;
     int i;
     char *token[4];
@@ -76,7 +80,8 @@ parse_address_ip(union ipAdr *newAddress, const char *rawIp){
 }
 
 static error_t
-transform_port_ip(union ipPrt *newPort, const char *rawPort){
+transform_port_ip(union ipPrt *newPort, const char *rawPort)
+{
     error_t status = SUCCESS;
 
     if (strncmp(rawPort, "smtp", 4) == 0){
@@ -133,7 +138,8 @@ transform_port_ip(union ipPrt *newPort, const char *rawPort){
 }
 
 error_t
-parse_port_ip(union ipPrt *newPort, const char *rawPort){
+parse_port_ip(union ipPrt *newPort, const char *rawPort)
+{
     error_t status = SUCCESS;
     if (transform_port_ip(newPort, rawPort) != SUCCESS){
         status |= parse_int_ip(&newPort->value, rawPort, copy_uint16_ip);
@@ -143,7 +149,8 @@ parse_port_ip(union ipPrt *newPort, const char *rawPort){
 }
 
 error_t
-parse_protocol_ip(int *newProtocol, const char *rawProtocol){
+parse_protocol_ip(int *newProtocol, const char *rawProtocol)
+{
     error_t status = SUCCESS;
     if(strncmp(rawProtocol, "ip", 2) == 0){
         *newProtocol = PROTO_IP;
@@ -169,23 +176,22 @@ parse_protocol_ip(int *newProtocol, const char *rawProtocol){
 }
 
 void
-transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard){
+transform_wildcard_ip(union ipAdr *address, union ipAdr *wildcard)
+{
     int i;
-    union ipAdr tmp;
 
     for (i = 0; i < 4; i++){
-        tmp.byte[i] = address->byte[i] &~ wildcard->byte[i];
+        address->byte[i] = address->byte[i] &~ wildcard->byte[i];
     }
-    *address = tmp;
 
     for (i = 0; i < 4; i++){
-        tmp.byte[i] = address->byte[i] | wildcard->byte[i];
+        wildcard->byte[i] = address->byte[i] | wildcard->byte[i];
     }
-    *wildcard = tmp;
 }
 
 error_t
-string_protocol(char *newString, int oldProtocol){
+string_protocol(char *newString, int oldProtocol)
+{
     error_t status = SUCCESS;
 
     switch (oldProtocol) {
@@ -214,7 +220,8 @@ string_protocol(char *newString, int oldProtocol){
 }
 
 error_t
-string_address(char *newString, union ipAdr oldAddress){
+string_address(char *newString, union ipAdr oldAddress)
+{
     error_t status = SUCCESS;
     snprintf(newString, VECTORSIZE, "%d.%d.%d.%d",
             oldAddress.byte[0], oldAddress.byte[1],
@@ -224,7 +231,8 @@ string_address(char *newString, union ipAdr oldAddress){
 }
 
 error_t
-string_port(char *newString, union ipPrt oldPort){
+string_port(char *newString, union ipPrt oldPort)
+{
     error_t status = SUCCESS;
     snprintf(newString, VECTORSIZE, "%d", oldPort.value);
 

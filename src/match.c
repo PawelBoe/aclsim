@@ -4,7 +4,8 @@
 
 
 static error_t
-compare_protocol_match(int vectorProto, int ruleProto){
+compare_protocol_match(int vectorProto, int ruleProto)
+{
     error_t status = ERR_GENERIC;
 
     if (vectorProto == ruleProto) {
@@ -19,7 +20,8 @@ compare_protocol_match(int vectorProto, int ruleProto){
 
 static error_t
 compare_address_match(union ipAdr vectorAdr, union ipAdr ruleAdrStart,
-                      union ipAdr ruleAdrEnd){
+                      union ipAdr ruleAdrEnd)
+{
     error_t status = SUCCESS;
     int i;
 
@@ -35,7 +37,8 @@ compare_address_match(union ipAdr vectorAdr, union ipAdr ruleAdrStart,
 
 static error_t
 compare_port_match(union ipPrt vectorPrt, union ipPrt rulePrtStart,
-                   union ipPrt rulePrtEnd, int rulePrtNeg){
+                   union ipPrt rulePrtEnd, int rulePrtNeg)
+{
     error_t status = SUCCESS;
 
     if(rulePrtNeg &&
@@ -53,7 +56,8 @@ compare_port_match(union ipPrt vectorPrt, union ipPrt rulePrtStart,
 }
 
 error_t
-check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
+check_match(struct match *newMatch, struct vector *vector, struct rule *rule)
+{
     error_t status = SUCCESS;
 
     newMatch->vectorPtr = vector;
@@ -90,7 +94,8 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule){
 }
 
 error_t
-print_match(struct match *match, option_t option, int *matchCount){
+print_match(struct match *match, option_t option, int *matchCount)
+{
     error_t status = SUCCESS;
 
     switch(match->state){

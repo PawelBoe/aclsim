@@ -21,7 +21,8 @@ void
 skip_line(FILE *stream);
 
 int
-main(int argc, char **argv){
+main(int argc, char **argv)
+{
     FILE *acl;
     int opt = 0;
     char *aclName = argv[1];
@@ -79,7 +80,8 @@ main(int argc, char **argv){
 }
 
 void
-process_acl(FILE *acl, option_t option){
+process_acl(FILE *acl, option_t option)
+{
     int vectorNr, ruleNr, matchCount;
     char vectorbuf[VECTORSIZE], rulebuf[RULESIZE];
     struct match match;
@@ -126,7 +128,8 @@ process_acl(FILE *acl, option_t option){
 }
 
 void
-print_usage(char *progName){
+print_usage(char *progName)
+{
         printf(
         "Usage: %s\t [-h]\n"
                "\t\t [-s] [aclFile]\n"
@@ -135,7 +138,8 @@ print_usage(char *progName){
                progName);
 }
 
-void print_help(char *progName){
+void print_help(char *progName)
+{
    print_usage(progName);
    printf("Simulate CISCO ACL functionality by applying rules to a "
            "fixed test\nvector file. Vectors are read from standard "
@@ -152,6 +156,7 @@ void print_help(char *progName){
 }
 
 void
-skip_line(FILE *stream){
+skip_line(FILE *stream)
+{
     while(getc(stream) != '\n');
 }

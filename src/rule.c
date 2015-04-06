@@ -5,7 +5,8 @@
 
 
 static error_t
-parse_action_rule(int * newAction, char *rawAction){
+parse_action_rule(int * newAction, char *rawAction)
+{
     error_t status = SUCCESS;
 
     if (strncmp(rawAction, "deny", 4) == 0){
@@ -27,7 +28,8 @@ parse_action_rule(int * newAction, char *rawAction){
 
 static error_t
 parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
-                   int *tokensExtracted){
+                   int *tokensExtracted)
+{
     error_t status = SUCCESS;
 
     if(strncmp(token[*tokensExtracted], "any", 3) == 0){
@@ -52,7 +54,8 @@ parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
 
 static error_t
 parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
-                int *prtNeg, int *tokensExtracted){
+                int *prtNeg, int *tokensExtracted)
+{
     error_t status = SUCCESS;
 
     if(strncmp(token[*tokensExtracted], "eq", 2) == 0){
@@ -95,7 +98,8 @@ parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
 }
 
 static error_t
-parse_fragment_rule(char *token[], int *tokensExtracted){
+parse_fragment_rule(char *token[], int *tokensExtracted)
+{
     error_t status = ERR_GENERIC;
 
     if (strncmp(token[*tokensExtracted], " ", 1) == 0){
@@ -110,7 +114,8 @@ parse_fragment_rule(char *token[], int *tokensExtracted){
 }
 
 error_t
-parse_rule(struct rule *newRule, char *rawRule, int *lineNr){
+parse_rule(struct rule *newRule, char *rawRule, int *lineNr)
+{
     error_t status = SUCCESS;
     int i;
     char *token[13];
