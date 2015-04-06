@@ -195,25 +195,25 @@ string_protocol(char *newString, int oldProtocol)
     error_t status = SUCCESS;
 
     switch (oldProtocol) {
-        case PROTO_IP:
-            strncpy(newString, "ip", 2);
-            break;
-        case PROTO_TCP:
-            strncpy(newString, "tcp", 3);
-            break;
-        case PROTO_UDP:
-            strncpy(newString, "udp", 3);
-            break;
-        case PROTO_ESP:
-            strncpy(newString, "esp", 3);
-            break;
-        case PROTO_ICMP:
-            strncpy(newString, "icmp", 4);
-            break;
-        case PROTO_UNKNOWN: //shouldn´t reach this point
-        default:
-            status = ERR_GENERIC;
-            break;
+    case PROTO_IP:
+        strncpy(newString, "ip", 2);
+        break;
+    case PROTO_TCP:
+        strncpy(newString, "tcp", 3);
+        break;
+    case PROTO_UDP:
+        strncpy(newString, "udp", 3);
+        break;
+    case PROTO_ESP:
+        strncpy(newString, "esp", 3);
+        break;
+    case PROTO_ICMP:
+        strncpy(newString, "icmp", 4);
+        break;
+    case PROTO_UNKNOWN: //shouldn´t reach this point
+    default:
+        status = ERR_GENERIC;
+        break;
     }
 
     return status;

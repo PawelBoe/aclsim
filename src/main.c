@@ -35,35 +35,35 @@ main(int argc, char **argv)
 
     while((opt = getopt(argc, argv, "hs:a:n:v:f:")) != -1){
         switch (opt) {
-            case 'h': //help
-                option = OP_HELP;
-                print_help(argv[0]);
-                exit(EXIT_SUCCESS);
-                break;
-            case 's': //standard
-                option = OP_STANDARD;
-                aclName = optarg;
-                break;
-            case 'a': //show all matches
-                option = OP_ALL;
-                aclName = optarg;
-                break;
-            case 'n': //show not matching
-                option = OP_NOMATCH;
-                aclName = optarg;
-                break;
-            case 'v': //show verbose (nomatch + all)
-                option = OP_VERBOSE;
-                aclName = optarg;
-                break;
-            case 'f': //filter vectors
-                option = OP_FILTER;
-                aclName = optarg;
-                break;
-            default:
-                option = OP_UNKNOWN;
-                print_usage(argv[0]);
-                exit(EXIT_FAILURE);
+        case 'h': //help
+            option = OP_HELP;
+            print_help(argv[0]);
+            exit(EXIT_SUCCESS);
+            break;
+        case 's': //standard
+            option = OP_STANDARD;
+            aclName = optarg;
+            break;
+        case 'a': //show all matches
+            option = OP_ALL;
+            aclName = optarg;
+            break;
+        case 'n': //show not matching
+            option = OP_NOMATCH;
+            aclName = optarg;
+            break;
+        case 'v': //show verbose (nomatch + all)
+            option = OP_VERBOSE;
+            aclName = optarg;
+            break;
+        case 'f': //filter vectors
+            option = OP_FILTER;
+            aclName = optarg;
+            break;
+        default:
+            option = OP_UNKNOWN;
+            print_usage(argv[0]);
+            exit(EXIT_FAILURE);
         }
     }
 
