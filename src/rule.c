@@ -141,7 +141,7 @@ parse_rule(struct rule *newRule, char *rawRule, int *lineNr)
 
     status |= parse_action_rule(&newRule->action, token[0]);
     tokensExtracted++;
-    //only count if a rule was parsed, ignore invalid actions
+    //only count when a rule was parsed, ignore invalid actions
     if (newRule->action == AC_DENY || newRule->action == AC_PERMIT){
         (*lineNr)++;
 
