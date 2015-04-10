@@ -27,7 +27,7 @@ typedef enum options{
     OP_VERBOSE = 4,
     OP_FILTER = 5,
     OP_UNKNOWN = -1,
-}option_t;
+} option_t;
 
 //Errorcodes
 typedef enum errors{
