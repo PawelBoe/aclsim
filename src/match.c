@@ -87,7 +87,7 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule)
         newMatch->state = ST_NOMATCH;
     }
     else{
-        newMatch->state = rule->action;
+        newMatch->state = (match_t)rule->action;
     }
 
     return status;

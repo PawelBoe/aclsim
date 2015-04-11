@@ -50,7 +50,7 @@ typedef enum matches{
     ST_REMARK = 2,
     ST_NOMATCH = 3,
     ST_ERROR = -1,
-}match_t;
+} match_t;
 
 //Protocols
 typedef enum protocols{
@@ -60,7 +60,7 @@ typedef enum protocols{
     PROTO_ESP = 3,
     PROTO_ICMP = 4,
     PROTO_UNKNOWN = -1,
-}proto_t;
+} proto_t;
 
 //Ports
 #define PORT_ECHO 7                /** echo */
