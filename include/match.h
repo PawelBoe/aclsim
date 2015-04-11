@@ -10,7 +10,7 @@
 struct match{
     struct rule *rulePtr;
     struct vector *vectorPtr;
-    match_t state;
+    state_t state;
 };
 
 extern error_t

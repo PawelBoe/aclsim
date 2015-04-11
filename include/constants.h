@@ -50,7 +50,7 @@ typedef enum matches{
     ST_REMARK = 2,
     ST_NOMATCH = 3,
     ST_ERROR = -1,
-} match_t;
+} state_t;
 
 //Protocols
 typedef enum protocols{
