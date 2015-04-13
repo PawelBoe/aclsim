@@ -23,12 +23,12 @@ compare_address_match(union ipAdr vectorAdr, union ipAdr ruleAdrStart,
                       union ipAdr ruleAdrEnd)
 {
     error_t status = SUCCESS;
-    int i;
 
+    int i;
     for(i = 0; i < 4; i++){
         if(!(vectorAdr.byte[i] >= ruleAdrStart.byte[i]) ||
            !(vectorAdr.byte[i] <= ruleAdrEnd.byte[i])){
-        status |= ERR_GENERIC;
+            status |= ERR_GENERIC;
         }
     }
 
