@@ -16,8 +16,25 @@ Vector syntax: protocol sourceIp sourcePort destinationIp destinationPort (flags
 - Protocols: ip, tcp, udp, icmp, esp
 - Port operations: eq, neq, gt, lt, range
 - IP address operations: any, host, (wildcard format)
-- Many Port aliases available (see ports.txt)
+- Many Port aliases available
 - Flags don´t work yet
+
+Port aliases:
+- smtp
+- domain
+- syslog
+- snmp
+- tftp
+- netbios-ss
+- isakmp
+- non500-isakmp
+- bgp
+- ssh
+- www
+- ftp
+- ftp-data
+- telnet
+- https
 
 some options are available too:
 
