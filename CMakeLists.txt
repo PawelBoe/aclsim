@@ -1,3 +1,14 @@
+# Usage:
+# - Make shure cmake is installed on your system
+# - Generate Makefiles:
+#   - mkdir path/to/aclsim/build
+#   - cd build
+#   - cmake .. -G "Unix Makefiles"
+# - Run build process:
+#   - make
+# - Clean binaries:
+#   - make clean
+
 cmake_minimum_required(VERSION 3.2)
 
 project(aclsim C)
