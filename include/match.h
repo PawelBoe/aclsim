@@ -7,7 +7,7 @@
 #include "constants.h"
 
 
-struct match{
+struct match {
     struct rule *rulePtr;
     struct vector *vectorPtr;
     state_t state;

@@ -19,7 +19,7 @@
 #define IPSIZE 16
 
 //Options
-typedef enum options{
+typedef enum options {
     OP_STANDARD = 0,
     OP_HELP = 1,
     OP_ALL = 2,
@@ -30,13 +30,13 @@ typedef enum options{
 } option_t;
 
 //Errorcodes
-typedef enum errors{
+typedef enum errors {
     SUCCESS = 0,
     ERR_GENERIC = 1,
 } error_t;
 
 //Rule actions
-typedef enum actions{
+typedef enum actions {
     AC_DENY = 0,
     AC_PERMIT = 1,
     AC_REMARK = 2,
@@ -44,7 +44,7 @@ typedef enum actions{
 } action_t;
 
 //Match states
-typedef enum matches{
+typedef enum matches {
     ST_DENY = 0,
     ST_PERMIT = 1,
     ST_REMARK = 2,
@@ -53,7 +53,7 @@ typedef enum matches{
 } state_t;
 
 //Protocols
-typedef enum protocols{
+typedef enum protocols {
     PROTO_IP = 0,
     PROTO_TCP = 1,
     PROTO_UDP = 2,

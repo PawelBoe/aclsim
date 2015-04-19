@@ -28,12 +28,12 @@ main(int argc, char **argv)
     char *aclName = argv[1];
     option_t option = OP_STANDARD;
 
-    if(argc != 2 && argc != 3){
+    if (argc != 2 && argc != 3) {
         print_usage(argv[0]);
         return EXIT_FAILURE;
     }
 
-    while((opt = getopt(argc, argv, "hs:a:n:v:f:")) != -1){
+    while ((opt = getopt(argc, argv, "hs:a:n:v:f:")) != -1) {
         switch (opt) {
         case 'h': //help
             option = OP_HELP;
@@ -68,7 +68,7 @@ main(int argc, char **argv)
     }
 
     acl = fopen(aclName, "r");
-    if(acl == NULL){
+    if (acl == NULL) {
         fprintf(stderr, "Unable to open file: %s\n", aclName);
         return EXIT_FAILURE;
     }
@@ -89,13 +89,13 @@ process_acl(FILE *acl, option_t option)
     struct vector vector;
 
     vectorNr = 0;
-    while(fgets(vectorbuf, VECTORSIZE-1, stdin)){
-        if(vectorbuf[strlen(vectorbuf)-1] != '\n'){
+    while (fgets(vectorbuf, VECTORSIZE-1, stdin)) {
+        if (vectorbuf[strlen(vectorbuf)-1] != '\n') {
             skip_line(stdin);
         }
         vectorbuf[strlen(vectorbuf)-1] = '\0';
 
-        if(parse_vector(&vector, vectorbuf, &vectorNr) != SUCCESS){
+        if (parse_vector(&vector, vectorbuf, &vectorNr) != SUCCESS) {
             fprintf(stderr, COLOR_RED
                     ">> Error occured in vector %d\n"
                     ">> Terminating program ..\n",
@@ -105,13 +105,13 @@ process_acl(FILE *acl, option_t option)
 
         ruleNr = 0;
         matchCount = 0;
-        while(fgets(rulebuf, RULESIZE-1, acl)){
-            if(rulebuf[strlen(rulebuf)-1] != '\n'){
+        while (fgets(rulebuf, RULESIZE-1, acl)) {
+            if (rulebuf[strlen(rulebuf)-1] != '\n') {
                 skip_line(acl);
             }
             rulebuf[strlen(rulebuf)-1] = '\0';
 
-            if(parse_rule(&rule, rulebuf, &ruleNr) != SUCCESS){
+            if (parse_rule(&rule, rulebuf, &ruleNr) != SUCCESS) {
                 fprintf(stderr, COLOR_RED
                         ">>Error occured in rule %d\n"
                         ">>Terminating program ..\n",
@@ -158,5 +158,5 @@ void print_help(char *progName)
 void
 skip_line(FILE *stream)
 {
-    while(getc(stream) != '\n');
+    while (getc(stream) != '\n');
 }

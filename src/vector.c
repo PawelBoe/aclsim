@@ -13,15 +13,15 @@ parse_vector(struct vector *newVector, char *rawVector, int *lineNr)
     strncpy(buff, rawVector, VECTORSIZE);
     buff[VECTORSIZE-1] = '\0';
 
-    for(i = 0; i < 6; i++){ //initialize tokens (no NULL-Ptr!)
+    for (i = 0; i < 6; i++) { //initialize tokens (no NULL-Ptr!)
         token[i] = "";
     }
 
     token[0] = strtok(buff, " \n");
-    for (i = 1; i < 6 && token[i-1] != NULL; i++){
+    for (i = 1; i < 6 && token[i-1] != NULL; i++) {
         token[i] = strtok(NULL, " \n");
     }
-    if (token[i-1] == NULL){
+    if (token[i-1] == NULL) {
         token[i-1] = ""; //no NULL-Ptr!
     }
 

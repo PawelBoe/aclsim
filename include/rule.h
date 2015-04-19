@@ -6,7 +6,7 @@
 #include "constants.h"
 
 
-struct rule{
+struct rule {
     int number;     //position of rule in ACL (starting with 0)
     action_t action;     //rule action (0-deny 1-permit, 2-remark)
     proto_t protocol;   //value of used communication protocol

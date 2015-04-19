@@ -6,7 +6,7 @@
 #include "constants.h"
 
 
-struct vector{
+struct vector {
     int number;
     proto_t protocol;
     union ipAdr srcAdr;

@@ -6,12 +6,12 @@
 #include "constants.h"
 
 
-union ipAdr{
+union ipAdr {
     uint8_t byte[4] ;
     uint32_t value;
 };
 
-union ipPrt{
+union ipPrt {
     uint8_t byte[2];
     uint16_t value;
 };
