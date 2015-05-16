@@ -17,8 +17,8 @@ struct vector {
 };
 
 extern error_t
-parse_vector(struct vector *newVector, char *rawVector, int *lineNr);
+parse_vector(struct vector *newVector, const char *rawVector, int *lineNr);
 
 extern error_t
-string_vector(char *newString, struct vector *oldVector);
+string_vector(char *newString, const struct vector *oldVector);
 #endif

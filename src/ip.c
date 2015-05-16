@@ -7,11 +7,11 @@
 
 
 static error_t
-copy_uint8_ip(void *value, long castedValue)
+copy_uint8_ip(const void *value, long castedValue)
 {
     error_t status = SUCCESS;
 
-    if (castedValue > UCHAR_MAX || castedValue < 0) {
+    if (UCHAR_MAX < castedValue || 0 > castedValue) {
         status |= ERR_GENERIC;
     }
     uint8_t *destination = (uint8_t*) value;
@@ -21,7 +21,7 @@ copy_uint8_ip(void *value, long castedValue)
 }
 
 static error_t
-copy_uint16_ip(void *value, long castedValue)
+copy_uint16_ip(const void *value, long castedValue)
 {
     error_t status = SUCCESS;
 
@@ -35,7 +35,7 @@ copy_uint16_ip(void *value, long castedValue)
 }
 
 static error_t
-parse_int_ip(void *value, const char *string, error_t (*copy)(void*, long))
+parse_int_ip(const void *value, const char *string, error_t (*copy)(const void*, long))
 {
     error_t status = SUCCESS;
     char *temp;

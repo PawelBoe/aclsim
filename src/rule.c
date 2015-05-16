@@ -5,7 +5,7 @@
 
 
 static error_t
-parse_action_rule(int * newAction, char *rawAction)
+parse_action_rule(int *newAction, const char *rawAction)
 {
     error_t status = SUCCESS;
 
@@ -27,7 +27,7 @@ parse_action_rule(int * newAction, char *rawAction)
 }
 
 static error_t
-parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
+parse_address_rule(char *const token[], union ipAdr *startAdr, union ipAdr *endAdr,
                    int *tokensExtracted)
 {
     error_t status = SUCCESS;
@@ -53,7 +53,7 @@ parse_address_rule(char *token[], union ipAdr *startAdr, union ipAdr *endAdr,
 }
 
 static error_t
-parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
+parse_port_rule(char *const token[], union ipPrt *startPrt, union ipPrt *endPrt,
                 int *prtNeg, int *tokensExtracted)
 {
     error_t status = SUCCESS;
@@ -98,7 +98,7 @@ parse_port_rule(char *token[], union ipPrt *startPrt, union ipPrt *endPrt,
 }
 
 static error_t
-parse_fragment_rule(char *token[], int *tokensExtracted)
+parse_fragment_rule(char *const token[], int *tokensExtracted)
 {
     error_t status = ERR_GENERIC;
 
@@ -108,13 +108,14 @@ parse_fragment_rule(char *token[], int *tokensExtracted)
     //allowed fragments (not evaluated though..)
     else if (strncmp(token[*tokensExtracted], "log", 3) == 0) {
        status = SUCCESS;
+       (*tokensExtracted)++;
     }
 
     return status;
 }
 
 error_t
-parse_rule(struct rule *newRule, char *rawRule, int *lineNr)
+parse_rule(struct rule *newRule, const char *rawRule, int *lineNr)
 {
     error_t status = SUCCESS;
     int i;

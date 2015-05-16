@@ -56,7 +56,7 @@ compare_port_match(union ipPrt vectorPrt, union ipPrt rulePrtStart,
 }
 
 error_t
-check_match(struct match *newMatch, struct vector *vector, struct rule *rule)
+check_match(struct match *newMatch, const struct vector *vector, const struct rule *rule)
 {
     error_t status = SUCCESS;
 
@@ -94,7 +94,7 @@ check_match(struct match *newMatch, struct vector *vector, struct rule *rule)
 }
 
 error_t
-print_match(struct match *match, option_t option, int *matchCount)
+print_match(const struct match *match, option_t option, int *matchCount)
 {
     error_t status = SUCCESS;
 

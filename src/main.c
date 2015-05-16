@@ -9,10 +9,10 @@
 
 
 void
-print_usage(char *progName);
+print_usage(const char *progName);
 
 void
-print_help(char *progName);
+print_help(const char *progName);
 
 void
 process_acl(FILE *acl, option_t option);
@@ -128,7 +128,7 @@ process_acl(FILE *acl, option_t option)
 }
 
 void
-print_usage(char *progName)
+print_usage(const char *progName)
 {
         printf(
         "Usage: %s\t [-h]\n"
@@ -138,7 +138,7 @@ print_usage(char *progName)
                progName);
 }
 
-void print_help(char *progName)
+void print_help(const char *progName)
 {
     print_usage(progName);
     printf("Simulate CISCO ACL functionality by applying rules to a "

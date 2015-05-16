@@ -27,6 +27,6 @@ struct rule {
 };
 
 extern error_t
-parse_rule(struct rule *newRule, char *rawRule, int *lineNr);
+parse_rule(struct rule *newRule, const char *rawRule, int *lineNr);
 
 #endif
