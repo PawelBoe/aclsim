@@ -2,7 +2,7 @@
 #include <string.h>
 
 error_t
-parse_option(optionAlt_t *newOption, int count, const char *arguments[])
+parse_option(optionAlt_t *newOption, int count, char *const arguments[])
 {
     error_t status = SUCCESS;
     newOption->all = 0; //initialize to zero

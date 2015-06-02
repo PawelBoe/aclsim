@@ -5,7 +5,7 @@
 #include "constants.h"
 
 
-typedef struct option {
+typedef struct optionAlt {
     union {
         struct {
             unsigned char help:1;
@@ -20,6 +20,6 @@ typedef struct option {
 } optionAlt_t;
 
 extern error_t
-parse_option(optionAlt_t *newOption, int count, const char *arguments[]);
+parse_option(optionAlt_t *newOption, int count, char *const arguments[]);
 
 #endif
