@@ -1,12 +1,12 @@
-CC = gcc
-CFLAGS = -c -Wall -Werror -Iinclude
+CC = g++
+CFLAGS = -g -c -Wall -Werror -Isrc --std=c++11 -O3
 LDFLAGS =
 
 ODIR = obj
 BDIR = bin
 
-SRC = $(shell find src -iname "*.c")
-OBJ = $(SRC:.c=.o)
+SRC = $(shell find src -iname "*.cpp")
+OBJ = $(SRC:.cpp=.o)
 BIN = aclsim
 
 all: $(SRC) $(BIN)
@@ -17,13 +17,12 @@ $(BIN): $(OBJ)
 	mkdir -p $(ODIR)
 	mv $(BIN) $(BDIR)
 	mv $(OBJ) $(ODIR)
+	rm -rf $(ODIR)
 	@echo build successfully!
-.c.o:
+.cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 clean:
-	rm -rf bin
-	rm -rf obj
-	rm -f $(OBJ)
+	rm -rf $(BDIR)
 	@echo cleaned successfully!
 
 .phony: clean
