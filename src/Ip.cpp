@@ -1,7 +1,7 @@
 #include "Ip.hpp"
 
 #include <sstream>
-
+#include <unordered_map>
 
 
 std::istream& operator>> (std::istream& is, Protocol& protocol)
@@ -114,34 +114,40 @@ std::istream& operator>> (std::istream& ss, Target& target)
 
     if (tmp == "eq")
     {
-        ss >> target.portMin;
+        ss >> tmp;
+        target.portMin = parse_port(tmp);
         target.portMax = target.portMin;
         target.portNeq = false;
     }
     else if (tmp == "neq")
     {
-        ss >> target.portMin;
+        ss >> tmp;
+        target.portMin = parse_port(tmp);
         target.portMax = target.portMin;
         target.portNeq = true;
     }
     else if (tmp == "lt")
     {
+        ss >> tmp;
+        target.portMax = parse_port(tmp);
         target.portMin = 0;
-        ss >> target.portMax;
         target.portMax --;
         target.portNeq = false;
     }
     else if (tmp == "gt")
     {
+        ss >> tmp;
+        target.portMin = parse_port(tmp);
         target.portMax = 65535;
-        ss >> target.portMin;
         target.portMin ++;
         target.portNeq = false;
     }
     else if (tmp == "range")
     {
-        ss >> target.portMin;
-        ss >> target.portMax;
+        ss >> tmp;
+        target.portMin = parse_port(tmp);
+        ss >> tmp;
+        target.portMax = parse_port(tmp);
         target.portNeq = false;
     }
     else
@@ -154,11 +160,13 @@ std::istream& operator>> (std::istream& ss, Target& target)
 
 void transform_wildcard(IpAddress& address, IpAddress& wildcard)
 {
-    for (int i = 0; i < 4; i++) {
-        address.byte[i] = address.byte[i] &~ wildcard.byte[i];
+    for (int i = 0; i < 4; i++)
+    {
+        address.byte[i] = address.byte[i] & ~ wildcard.byte[i];
     }
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++)
+    {
         wildcard.byte[i] = address.byte[i] | wildcard.byte[i];
     }
 }
@@ -187,4 +195,163 @@ bool is_ipAddress(const std::string& token)
         return false;
 
     return true;
+}
+
+int parse_port(std::string token)
+{
+    std::transform(token.begin(), token.end(), token.begin(), ::tolower);
+
+    std::unordered_map<std::string, int> PORTS;
+
+    PORTS["echo"] = 7;
+    PORTS["discard"] = 9;
+    PORTS["daytime"] = 13;
+    PORTS["chargen"] = 19;
+    PORTS["ftp-data"] = 20;
+    PORTS["sip"] = 5060;
+    PORTS["nfs"] = 2049;
+    PORTS["ftp"] = 21;
+    PORTS["ssh"] = 22;
+    PORTS["telnet"] = 23;
+    PORTS["smtp"] = 25;
+    PORTS["time"] = 37;
+    PORTS["nameserver"] = 42;
+    PORTS["whois"] = 43;
+    PORTS["tacacs"] = 49;
+    PORTS["domain"] = 53;
+    PORTS["tacacs_ds"] = 65;
+    PORTS["bootps"] = 67;
+    PORTS["bootpc"] = 68;
+    PORTS["tftp"] = 69;
+    PORTS["gopher"] = 70;
+    PORTS["finger"] = 79;
+    PORTS["www"] = 80;
+    PORTS["kerberos_sec"] = 88;
+    PORTS["hostname"] = 101;
+    PORTS["pop2"] = 109;
+    PORTS["pop3"] = 110;
+    PORTS["sunrpc"] = 111;
+    PORTS["ident"] = 113;
+    PORTS["nntp"] = 119;
+    PORTS["ntp"] = 123;
+    PORTS["netbios_ns"] = 137;
+    PORTS["netbios_dgm"] = 138;
+    PORTS["netbios_ss"] = 139;
+    PORTS["imap"] = 143;
+    PORTS["snmp"] = 161;
+    PORTS["snmptrap"] = 162;
+    PORTS["xdmcp"] = 177;
+    PORTS["bgp"] = 179;
+    PORTS["irc"] = 194;
+    PORTS["dnsix"] = 195;
+    PORTS["ldap"] = 389;
+    PORTS["mobile_ip"] = 434;
+    PORTS["mobil_ip_mn"] = 435;
+    PORTS["https"] = 443;
+    PORTS["snpp"] = 444;
+    PORTS["pim_auto_rp"] = 496;
+    PORTS["isakmp"] = 500;
+    PORTS["biff"] = 512;
+    PORTS["exec"] = 512;
+    PORTS["login"] = 513;
+    PORTS["who"] = 513;
+    PORTS["cmd"] = 514;
+    PORTS["syslog"] = 514;
+    PORTS["lpd"] = 515;
+    PORTS["talk"] = 517;
+    PORTS["ntalk"] = 518;
+    PORTS["rip"] = 520;
+    PORTS["timed"] = 525;
+    PORTS["uucp"] = 540;
+    PORTS["klogin"] = 543;
+    PORTS["kshell"] = 544;
+    PORTS["dhcp"] = 547;
+    PORTS["msdp"] = 639;
+    PORTS["ldp"] = 646;
+    PORTS["krb_prop"] = 754;
+    PORTS["krbupdate"] = 760;
+    PORTS["kpasswd"] = 761;
+    PORTS["socks"] = 1080;
+    PORTS["afs"] = 1483;
+    PORTS["radius_old"] = 1645;
+    PORTS["pptp"] = 1723;
+    PORTS["radius"] = 1812;
+    PORTS["radacct"] = 1813;
+    PORTS["zephyr_clt"] = 2103;
+    PORTS["zephyr_hm"] = 2104;
+    PORTS["eklogin"] = 2105;
+    PORTS["ekshell"] = 2106;
+    PORTS["rkinit"] = 2108;
+    PORTS["nfsd"] = 2049;
+    PORTS["cvspserver"] = 2401;
+    PORTS["non500_isakmp"] = 4500;
+    PORTS["aol"] = 5120;
+    PORTS["bgp"] = 179;
+    PORTS["chargen"] = 19;
+    PORTS["cifs"] = 3020;
+    PORTS["citrix-ica"] = 1494;
+    PORTS["cmd"] = 514;
+    PORTS["ctiqbe"] = 2748;
+    PORTS["daytime"] = 13;
+    PORTS["discard"] = 9;
+    PORTS["domain"] = 53;
+    PORTS["echo"] = 7;
+    PORTS["exec"] = 512;
+    PORTS["finger"] = 79;
+    PORTS["ftp"] = 21;
+    PORTS["ftp-data"] = 20;
+    PORTS["gopher"] = 70;
+    PORTS["h323"] = 1720;
+    PORTS["hostname"] = 101;
+    PORTS["http"] = 80;
+    PORTS["https"] = 443;
+    PORTS["ident"] = 113;
+    PORTS["imap4"] = 143;
+    PORTS["irc"] = 194;
+    PORTS["kerberos"] = 88;
+    PORTS["klogin"] = 543;
+    PORTS["kshell"] = 544;
+    PORTS["ldap"] = 389;
+    PORTS["ldaps"] = 636;
+    PORTS["login"] = 513;
+    PORTS["lotusnotes"] = 1352;
+    PORTS["lpd"] = 515;
+    PORTS["netbios-ssn"] = 139;
+    PORTS["nfs"] = 2049;
+    PORTS["nntp"] = 119;
+    PORTS["pcanywhere-data"] = 5631;
+    PORTS["pim-auto-rp"] = 496;
+    PORTS["pop2"] = 109;
+    PORTS["pop3"] = 110;
+    PORTS["pptp"] = 1723;
+    PORTS["rsh"] = 514;
+    PORTS["r tsp"] = 554;
+    PORTS["sip"] = 5060;
+    PORTS["smtp"] = 25;
+    PORTS["sqlnet"] = 1522;
+    PORTS["ssh"] = 22;
+    PORTS["sunrpc"] = 111;
+    PORTS["tacacs"] = 49;
+    PORTS["talk"] = 517;
+    PORTS["telnet"] = 23;
+    PORTS["uucp"] = 540;
+    PORTS["whois"] = 43;
+    PORTS["www"] = 80;
+
+    int result;
+
+    try
+    {
+        result = PORTS.at(token);
+    }
+    catch (std::out_of_range &e)
+    {
+        std::istringstream ss(token);
+        ss >> result;
+
+        if (ss.fail())
+            throw std::runtime_error("Unknown port: " + token);
+    }
+
+    return result;
 }

@@ -52,4 +52,6 @@ void transform_wildcard(IpAddress& address, IpAddress& wildcard);
 
 bool is_ipAddress(const std::string& token);
 
+int parse_port(std::string token);
+
 #endif /* end of include guard: IP_HPP */
