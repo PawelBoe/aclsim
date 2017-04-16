@@ -28,10 +28,10 @@ int main(int argc, char *argv[])
 
         SegmentParser segmentParser;
 
-        while (!segmentParser.eof())
+        while (segmentParser.fetch_segment())
         {
             Matcher matcher;
-            Segment segment = segmentParser.next_segment();
+            Segment segment = segmentParser.get_segment();
 
             for (auto &aclRule : ruleParser.get_rules()) {
                 matcher.match(aclRule, segment);

@@ -16,18 +16,15 @@ void Rule::from_string(const std::string &line)
     // IP => any | host NUM.NUM.NUM.NUM | NUM.NUM.NUM.NUM NUM.NUM.NUM.NUM | NETWORK_GROUP
     // PORT => eq NUM | gt NUM | lt NUM | range NUM NUM | SERVICE_GROUP
 
-    inbuf >> m_action;
-
-    inbuf >> m_protocol;
-
     m_sourceTarget.portMin = 0;
     m_sourceTarget.portMax = 65535;
-    inbuf >> m_sourceTarget;
-    inbuf >> m_sourceTarget;
-
     m_destinationTarget.portMin = 0;
     m_destinationTarget.portMax = 65535;
-    inbuf >> m_destinationTarget;
+
+    inbuf >> m_action;
+    inbuf >> m_protocol;
+
+    inbuf >> m_sourceTarget;
     inbuf >> m_destinationTarget;
 }
 
@@ -38,41 +35,12 @@ const std::string& Rule::to_string() const
 #include <iostream>
 bool Rule::apply(Segment segment) const
 {
-    auto b =
+    return
         match_protocol(segment.protocol()) &&
         match_sourceAddress(segment.sourceAddress()) &&
         match_destinationAddress(segment.destinationAddress()) &&
         match_sourcePort(segment.sourcePort()) &&
         match_destinationPort(segment.destinationPort());
-
-    std::cout << match_protocol(segment.protocol());
-    std::cout << match_sourceAddress(segment.sourceAddress());
-    std::cout << match_destinationAddress(segment.destinationAddress());
-    std::cout << match_sourcePort(segment.sourcePort());
-    std::cout << match_destinationPort(segment.destinationPort()) << std::endl;
-
-    std::cout
-        << (int)m_sourceTarget.addressMin.byte[0] << " "
-        << (int)m_sourceTarget.addressMin.byte[1] << " "
-        << (int)m_sourceTarget.addressMin.byte[2] << " "
-        << (int)m_sourceTarget.addressMin.byte[3] << std::endl;
-    std::cout
-        << (int)m_sourceTarget.addressMax.byte[0] << " "
-        << (int)m_sourceTarget.addressMax.byte[1] << " "
-        << (int)m_sourceTarget.addressMax.byte[2] << " "
-        << (int)m_sourceTarget.addressMax.byte[3] << std::endl;
-    std::cout
-        << (int)m_destinationTarget.addressMin.byte[0] << " "
-        << (int)m_destinationTarget.addressMin.byte[1] << " "
-        << (int)m_destinationTarget.addressMin.byte[2] << " "
-        << (int)m_destinationTarget.addressMin.byte[3] << std::endl;
-    std::cout
-        << (int)m_destinationTarget.addressMax.byte[0] << " "
-        << (int)m_destinationTarget.addressMax.byte[1] << " "
-        << (int)m_destinationTarget.addressMax.byte[2] << " "
-        << (int)m_destinationTarget.addressMax.byte[3] << std::endl;
-
-    return b;
 }
 
 Action Rule::get_action() const

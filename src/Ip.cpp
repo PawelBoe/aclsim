@@ -108,7 +108,11 @@ std::istream& operator>> (std::istream& ss, Target& target)
         ss >> target.addressMax;
         transform_wildcard(target.addressMin, target.addressMax);
     }
-    else if (tmp == "eq")
+
+    auto len = ss.tellg();
+    ss >> tmp;
+
+    if (tmp == "eq")
     {
         ss >> target.portMin;
         target.portMax = target.portMin;
@@ -139,6 +143,10 @@ std::istream& operator>> (std::istream& ss, Target& target)
         ss >> target.portMin;
         ss >> target.portMax;
         target.portNeq = false;
+    }
+    else
+    {
+        ss.seekg(len);
     }
 
     return ss;

@@ -3,19 +3,21 @@
 #include <iostream>
 
 
-Segment SegmentParser::next_segment()
+Segment SegmentParser::get_segment()
 {
     Segment vec;
 
-    std::string line;
-
-    std::getline(std::cin, line);
-    vec.from_string(line);
+    vec.from_string(m_line);
 
     return vec;
 }
 
-bool SegmentParser::eof() const
+bool SegmentParser::fetch_segment()
 {
-    return std::cin.eof();
+    m_line.clear();
+
+    if (std::getline(std::cin, m_line))
+        return true;
+
+    return false;
 }

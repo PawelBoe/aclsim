@@ -7,11 +7,12 @@
 class SegmentParser
 {
 public:
-    Segment next_segment();
+    Segment get_segment();
 
-    bool eof() const;
+    bool fetch_segment();
 
 private:
+    std::string m_line;
 };
 
 
