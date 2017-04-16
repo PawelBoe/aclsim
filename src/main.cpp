@@ -42,11 +42,15 @@ int main(int argc, char *argv[])
     }
     catch (std::invalid_argument &e)
     {
-        std::cerr << "Invalid Argument: " << e.what() << std::endl;
+        std::cerr
+            << "Invalid Argument: " << e.what() << std::endl
+            << "Terminating program .." << std::endl;
     }
     catch (std::runtime_error &e)
     {
-        std::cerr << "Runtime Error: " << e.what() << std::endl;
+        std::cerr
+            << "Runtime Error: " << e.what() << std::endl
+            << "Terminating program .." << std::endl;
     }
 
     return 0;
