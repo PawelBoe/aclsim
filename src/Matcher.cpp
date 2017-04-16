@@ -66,7 +66,7 @@ void Matcher::print_matches(Segment segment, Option option) const
             return;
 
         if (matches[0].action == Action::PERMIT)
-            std::cout << matches[0].segment.data() << std::endl;
+            std::cout << matches[0].segment.to_string() << std::endl;
     }
     else
     {
@@ -76,7 +76,24 @@ void Matcher::print_matches(Segment segment, Option option) const
 
 void Matcher::print_match(Match match) const
 {
-    std::cout << static_cast<int>(match.action) << " :: " << match.segment.data() << std::endl;
+    switch (match.action) {
+        case Action::NO_MATCH:
+            std::cout
+                << "NO MATCH "
+                << "[" << match.rule.to_string() << "]"
+                << " => "
+                << "[" << match.segment.to_string() << "]"
+                << std::endl;
+            break;
+        default:
+            std::cout
+                << "MATCH "
+                << "[" << match.rule.to_string() << "]"
+                << " => "
+                << "[" << match.segment.to_string() << "]"
+                << std::endl;
+            break;
+    }
 }
 
 std::vector<Match> Matcher::get_first_match(Segment segment) const

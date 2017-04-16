@@ -2,48 +2,37 @@
 #define RULE_HPP
 
 #include "Segment.hpp"
+#include "Ip.hpp"
 
 #include <string>
 
-
-enum class Action
-{
-    NO_MATCH,
-    PERMIT,
-    DENY,
-};
 
 class Rule
 {
 public:
     void from_string(const std::string &line);
+    const std::string& to_string() const;
 
     bool apply(Segment segment) const;
 
     Action get_action() const;
 
-    const std::string& data() const;
-
 private:
-    std::string m_data;
+    bool match_sourceAddress(const IpAddress &address) const;
+    bool match_destinationAddress(const IpAddress &address) const;
 
-/*     int m_number; */
-/*     Action m_action; // DENY, PERMIT */
-/*     int m_protocol; // IP, TCP, UDP, ICMP .. */
+    bool match_sourcePort(const Port &port) const;
+    bool match_destinationPort(const Port &port) const;
 
-/*     int m_srcAdrStart; */
-/*     int m_srcAdrEnd; */
+    bool match_protocol(const Protocol &protocol) const;
 
-/*     int m_dstAdrStart; */
-/*     int m_dstAdrEnd; */
+    std::string m_raw;
 
-/*     int m_srcPrtStart; */
-/*     int m_srcPrtEnd; */
-/*     bool m_srcPrtNeq; */
+    Action m_action;
+    Protocol m_protocol;
 
-/*     int m_dstPrtStart; */
-/*     int m_dstPrtEnd; */
-/*     bool m_dstPrtNeq; */
+    Target m_sourceTarget;
+    Target m_destinationTarget;
 };
 
 

@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -g -c -Wall -Werror -Isrc --std=c++11
+CFLAGS = -g -c -Wall -Werror -Isrc --std=c++11 -O3
 LDFLAGS =
 
 ODIR = obj
