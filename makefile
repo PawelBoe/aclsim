@@ -17,11 +17,11 @@ $(BIN): $(OBJ)
 	mkdir -p $(ODIR)
 	mv $(BIN) $(BDIR)
 	mv $(OBJ) $(ODIR)
-	rm -rf $(ODIR)
 	@echo build successfully!
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 clean:
+	rm -rf $(ODIR)
 	rm -rf $(BDIR)
 	@echo cleaned successfully!
 
