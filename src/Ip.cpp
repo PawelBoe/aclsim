@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <unordered_map>
+#include <stdexcept>
 
 
 std::istream& operator>> (std::istream& is, Protocol& protocol)

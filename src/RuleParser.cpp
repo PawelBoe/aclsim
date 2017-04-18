@@ -1,6 +1,7 @@
 #include "RuleParser.hpp"
 
 #include <fstream>
+#include <stdexcept>
 
 
 void RuleParser::from_file(const std::string &aclFile)

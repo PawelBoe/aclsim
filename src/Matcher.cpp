@@ -1,6 +1,7 @@
 #include "Matcher.hpp"
 
 #include <iostream>
+#include <stdexcept>
 
 
 void Matcher::match(Rule rule, Segment segment)

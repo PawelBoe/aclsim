@@ -1,6 +1,7 @@
 #include "SegmentParser.hpp"
 
 #include <iostream>
+#include <stdexcept>
 
 
 Segment SegmentParser::get_segment()
