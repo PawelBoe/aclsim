@@ -3,6 +3,7 @@
 #include <sstream>
 #include <unordered_map>
 #include <stdexcept>
+#include <locale>
 
 
 std::istream& operator>> (std::istream& is, Protocol& protocol)
