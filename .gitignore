@@ -4,4 +4,6 @@
 /.idea/
 *.swp
 CMakeLists.txt
+cmake-build-debug/
+tests/SECRET-Rule1.txt
 notes.txt
