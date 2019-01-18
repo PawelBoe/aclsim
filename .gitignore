@@ -1,9 +1,13 @@
 /bin/
 /obj/
 /build/
+
 /.idea/
 *.swp
 CMakeLists.txt
 cmake-build-debug/
-tests/SECRET-Rule1.txt
+
 notes.txt
+
+tests/SECRET-Rule1.txt
+tests/SECRET-Objects.dms
