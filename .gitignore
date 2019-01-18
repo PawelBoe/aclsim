@@ -3,4 +3,5 @@
 /build/
 /.idea/
 *.swp
+CMakeLists.txt
 notes.txt
