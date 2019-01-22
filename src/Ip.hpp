@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include <sstream>
+#include <unordered_map>
 
 enum class Action
 {
@@ -38,6 +39,12 @@ struct Target
     Port portMax;
 
     bool portNeq;
+};
+
+struct PortParser
+{
+    PortParser (std::string port_file);
+    std::unordered_map<std::string, int> PORTS;
 };
 
 std::istream& operator>> (std::istream& is, Protocol& protocol);
